@@ -8,8 +8,8 @@
                              '.'.-.-,_.'.'
                                '(  (..-'
                                  '-'
-   WHYSOS3RIOUS   PRESENTS :   
-   The ROULETH 
+#  WHYSOS3RIOUS   PRESENTS :   
+#   The ROULETH 
 
   Play the Roulette on ethereum blockchain !
   (or become an investor in the Casino and share the profits/losses.) 
@@ -26,7 +26,7 @@
   Stake : Variable, check on website for the max bet.
   At launch the max stake is 0.05 ETH
 
-  How to play ?
+ # How to play ?
   1) Simplest (via transactions from your wallet, not an exchange) : 
   Just send money to the contract.
   This will by default place a bet on number 7
@@ -48,7 +48,7 @@
   Use the website to track your bets and the results of the spins
 
 
-   How to invest ?
+ #  How to invest ?
    Import the contract in Mist Wallet using the code of the ABI (link on my website)
    Use the Invest function with an amount >10 Ether (can change, check on my website)
    You will become an investor and share the profits and losses of the roulette
