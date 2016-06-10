@@ -56,7 +56,20 @@
 //   The rest of your investment goes directly to the payroll and 98% of profits are shared between 
 //   investors relatively to their share of total. Losses are split similarly.
 //   You can withdraw your funds at any time after the initial lock period (set to 1 week)
-
+//   To withdraw use the function withdraw and specify the amoutn you want to withdraw in Wei.
+//   If your withdraw brings your investment under 10 eth (the min invest, subject to change)
+//   then you will execute a full withdraw and stop being an investor.
+//   
+//   
+//   At start there is a limit of 50 investors (can be maxed to 150)
+//   If there is not open position and you want to invest, you can try to buyout a current investor.
+//   To buyout, you have to invest more than any investor whose funds are unlocked (after 1 week grace lock period)
+//
+//   At any time an investor can add funds to his investment with the withdraw function.
+//   Doing so will refresh the lock period and secure your position.
+//
+//
+//
 contract Rouleth
 {
 
@@ -599,7 +612,7 @@ contract Rouleth
 	    address investor;
 	    uint256 time;
     }	
-	Investor[100] private investors ;
+	Investor[150] private investors ;
     //Balances of the investors
     mapping (address=>uint256) balance; 
     //Investor lockPeriod
