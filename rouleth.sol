@@ -796,32 +796,58 @@ contract Rouleth
     {
          //split Profits
          uint256 profitToSplit;
-         uint256 profitShared;
-         uint256 lossShared;
-         if (profitSinceChange>0)
+         uint256 lossToSplit;
+         if (profitSinceChange>0 || lossSinceChange>0)
          {
-             profitToSplit = profitSinceChange;
-             // 2% fees for developer on Profit
-             uint256 developerFees=profitSinceChange*2/100;
-             profitToSplit-=developerFees;
-             if (developer.send(developerFees)==false) throw;
+             // Case : Global profit (more win than losses)
+             // 2% fees for developer on global profit (if profit>loss)
+             if (profitSinceChange>lossSinceChange)
+             {
+                profitToSplit=profitSinceChange-lossSinceChange;
+                uint256 developerFees=profitToSplit*2/100;
+                profitToSplit-=developerFees;
+                if (developer.send(developerFees)==false) throw;
+             }
+             else
+             {
+                lossToSplit=lossSinceChange-profitSinceChange;
+             }
          }
          //share the loss and profits between all invest 
          //(proportionnaly. to each investor balance)
+         uint totalShared;
              for (uint8 k=0; k<setting_maxInvestors; k++)
              {
                  address inv=investors[k].investor;
                  if (inv==0) continue;
                  else
                  {
-                       uint profitShare=profitToSplit*balance[inv]/payroll;
-                       uint lossShare=lossSinceChange*balance[inv]/payroll;
-                       balance[inv]+=profitShare;
-                       balance[inv]-=lossShare;
+                       if (profitToSplit!=0) 
+                       {
+                           uint profitShare=(profitToSplit*balance[inv])/payroll;
+                           balance[inv]+=profitShare;
+                           totalShared+=profitShare;
+                       }
+                       if (lossToSplit!=0) 
+                       {
+                           uint lossShare=(lossToSplit*balance[inv])/payroll;
+                           balance[inv]-=lossShare;
+                           totalShared+=lossShare;
+                           
+                       }
                  }
              }
           // update payroll
-          payroll=payroll-lossSinceChange+profitToSplit;
+          if (profitToSplit !=0) 
+          {
+              payroll+=profitToSplit;
+              balance[developer]+=profitToSplit-totalShared;
+          }
+          if (lossToSplit !=0) 
+          {
+              payroll-=lossToSplit;
+              balance[developer]-=lossToSplit-totalShared;
+          }
           profitSinceChange=0; //reset Profit;
           lossSinceChange=0; //reset Loss ;
      }
