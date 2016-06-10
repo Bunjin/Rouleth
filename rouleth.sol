@@ -84,7 +84,7 @@
 //   To counter this potential miner edge (=base win proba + (miner proba to find block)*base win proba )
 //   we keep wager amounts far smaller than 5 Eth so that the miner prefers to get his block reward than cheat.
 //   Note that a miner could place several bets on the same block to increase his potential profit from dropping a block
-//
+//   For this reason we limit the number of bets per block to 2 at start (configurable later if needed).
 contract Rouleth
 {
 
@@ -93,18 +93,20 @@ contract Rouleth
     uint8 blockDelay; //nb of blocks to wait before spin
     uint8 blockExpiration; //nb of blocks before bet expiration (due to hash storage limits)
     uint256 maxGamble; //max gamble value manually set by config
+    uint maxBetsPerBlock; //limits the number of bets per blocks to prevent miner cheating
+    uint nbBetsCurrentBlock; //counts the nb of bets in the block
     //Current gamble value possibly lower than config (<payroll/(20*35))
     uint256 currentMaxGamble; 
     //Gambles
     struct Gamble
     {
-	    address player;
+	address player;
         bool spinned; //Was the rouleth spinned ?
-		bool win;
-	    BetTypes betType; //number/color/dozen/oddeven
-	    uint8 input; //stores number, color, dozen or oddeven
-	    uint256 wager;
-	    uint256 blockNumber;
+	bool win;
+	BetTypes betType; //number/color/dozen/oddeven
+	uint8 input; //stores number, color, dozen or oddeven
+	uint256 wager;
+	uint256 blockNumber; //block of bet -1
         uint8 wheelResult;
     }
     Gamble[] private gambles;
@@ -123,6 +125,7 @@ contract Rouleth
         blockDelay=6; //delay to wait between bet and spin
 	    blockExpiration=200;
         maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
+        maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners (to keep max reward<5ETH)
     }
 	
     modifier onlyDeveloper() {
@@ -160,10 +163,12 @@ contract Rouleth
     }
 
          //Change some settings within safety bounds
-	function changeSettings(uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
+	function changeSettings(uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
 	noEthSent
 	onlyDeveloper
 	{
+	        //Max number of bets per block to prevent miner cheating
+	        maxBetsPerBlock=newMaxBetsBlock;
                 //MAX BET : limited by payroll/(20*35) for statiscal confidence in longevity of casino
 		if (newMaxGamble<=0 || newMaxGamble>=this.balance/(20*35)) throw; 
 		else { maxGamble=newMaxGamble; }
@@ -226,6 +231,14 @@ contract Rouleth
        }
 
 
+    //check number of bets in block (to prevent miner cheating and keep max reward per block <5ETH)
+    modifier checkNbBetsCurrentBlock()
+    {
+        if(block.number=gambles[gambles.length-1]) nbBetsCurrentBlock+=1;
+        else nbBetsCurrentBlock=0;
+        if (nbBetsCurrentBlock>=maxBetsPerBlock) throw;
+        _
+    }
     //check that the player is not playing already (unless it has expired)
     modifier checkWaitingForBet{
         //if player is already in gamble
@@ -259,6 +272,7 @@ contract Rouleth
     function betOnNumber(uint8 numberChosen)
     checkWaitingForBet
     onlyActive
+    checkNbBetsCurrentBlock
     {
         //check that number chosen is valid and records bet
         if (numberChosen>36) throw;
@@ -275,6 +289,7 @@ contract Rouleth
     function betOnColor(bool Red, bool Black)
     checkWaitingForBet
     onlyActive
+    checkNbBetsCurrentBlock
     {
         uint8 count;
         uint8 input;
@@ -302,6 +317,7 @@ contract Rouleth
     function betOnLowHigh(bool Low, bool High)
     checkWaitingForBet
     onlyActive
+    checkNbBetsCurrentBlock
     {
         uint8 count;
         uint8 input;
@@ -329,6 +345,7 @@ contract Rouleth
     function betOnOddEven(bool Odd, bool Even)
     checkWaitingForBet
     onlyActive
+    checkNbBetsCurrentBlock
     {
         uint8 count;
         uint8 input;
@@ -358,6 +375,7 @@ contract Rouleth
     function betOnDozen(bool First, bool Second, bool Third)
     checkWaitingForBet
     onlyActive
+    checkNbBetsCurrentBlock
     {
          betOnColumnOrDozen(First,Second,Third, BetTypes.dozen);
     }
@@ -371,6 +389,7 @@ contract Rouleth
     function betOnColumn(bool First, bool Second, bool Third)
     checkWaitingForBet
     onlyActive
+    checkNbBetsCurrentBlock
     {
          betOnColumnOrDozen(First, Second, Third, BetTypes.column);
      }
