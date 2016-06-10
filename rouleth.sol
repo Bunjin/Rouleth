@@ -808,7 +808,7 @@ contract Rouleth
     }
 	
 
-	function investmentEntryCost() constant returns(bool open_position, bool unlocked_position, uint buyout_amount)
+	function investmentEntryCost() constant returns(bool open_position, bool unlocked_position, uint buyout_amount, uint investLockPeriod)
 	{
 		if (openPosition!=255) open_position=true;
 		if (cheapestUnlockedPosition!=255) 
@@ -816,7 +816,15 @@ contract Rouleth
 			unlocked_position=true;
 			buyout_amount=minCurrentInvest;
 		}
+		investLockPeriod=setting_lockPeriod;
 		return;
+	}
+	
+	function getSettings() constant returns(uint maxBet, uint8 blockDelayBeforeSpin)
+	{
+	    maxBet=currentMaxGamble;
+	    blockDelayBeforeSpin=blockDelay;
+	    return ;
 	}
 	
     function checkMyBet(address player) constant returns(Status player_status, BetTypes bettype, uint8 input, uint value, uint8 result, bool wheelspinned, bool win, uint blockNb)
