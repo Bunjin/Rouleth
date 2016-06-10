@@ -25,6 +25,7 @@
 //  Stake : Variable, check on website for the max bet.
 //  At launch the max stake is 0.05 ETH
 //
+//
 //  How to play ?
 //  1) Simplest (via transactions from your wallet, not an exchange) : 
 //  Just send the value you want to bet to the contract and add enough gas 
@@ -70,6 +71,19 @@
 //   Doing so will refresh the lock period and secure your position.
 //
 //
+//   A provably fair roulette :  note on Random Number Generation.
+//   The roulette result is based on the hash of the 6th block after the player commits his bet.
+//   This guarantees a provably fair roulette with equiprobable results and non predictable
+//   unless someone has more computing power than all the Ethereum Network.
+//   Yet Miners could try to exploit their position in 2 ways.
+//   First they could try to mine 7 blocks in a row (to commit their bet based on result for a sure win),
+//   but this is highly improbable and not predictible.
+//   Second they could commit a bet, then wait 6 blocks and hope that they will be the one forming the 
+//   block on which their commited bet depends. If this is the case and the hash they find is not a
+//   winning one, they could decide to not share the block with the network but would lose 5 ether.
+//   To counter this potential miner edge (=base win proba + (miner proba to find block)*base win proba )
+//   we keep wager amounts far smaller than 5 Eth so that the miner prefers to get his block reward than cheat.
+//   Note that a miner could place several bets on the same block to increase his potential profit from dropping a block
 //
 contract Rouleth
 {
