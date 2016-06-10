@@ -475,7 +475,7 @@ contract Rouleth
             if (win)
             {
 		  gambles[gambleIndex[msg.sender]].win=true;
-		  uint win_v = multiplier*gambles[gambleIndex[msg.sender]].wager;
+		  uint win_v = multiplier*bet_v;
                   msg.sender.send(win_v);
                   lossSinceChange+=win_v-bet_v;
 		  Win(msg.sender, result, win_v);
@@ -633,8 +633,7 @@ contract Rouleth
 
      function invest()
      {
-          // check that min 10 ETH is sent
-          // make this min invest variable ?
+          // check that min 10 ETH is sent (variable setting)
           if (msg.value<setting_minInvestment) throw;
           // check if already investor
           bool alreadyInvestor;
@@ -690,7 +689,7 @@ contract Rouleth
  		  newInvest(msg.sender, netInvest);
           balance[msg.sender]+=netInvest; //add invest to balance
           payroll+=netInvest;
-          //send maintenance fees to developer (with security if transaction fails)
+          //send maintenance fees to developer 
           if (developer.send(maintenanceFees)==false) throw;
           updateMaxBet();
       }
@@ -706,18 +705,18 @@ contract Rouleth
     {
         //before withdraw, update balances of the investors with the Profit and Loss sinceChange
         updateBalances();
-		//check that amount requested is authorized  
-		if (amountToWithdrawInWei>balance[msg.sender]) throw;
-          //retrieve investor ID
-          uint8 investorID=255;
-          for (uint8 k = 0; k<setting_maxInvestors; k++)
-          {
+	//check that amount requested is authorized  
+	if (amountToWithdrawInWei>balance[msg.sender]) throw;
+        //retrieve investor ID
+        uint8 investorID=255;
+        for (uint8 k = 0; k<setting_maxInvestors; k++)
+        {
                if (investors[k].investor==msg.sender)
                {
                     investorID=k;
                     break;
                }
-           }
+        }
            if (investorID==255) throw; //stop if not an investor
            //check if investment lock period is over
            if (investors[investorID].time+setting_lockPeriod>now) throw;
@@ -767,7 +766,6 @@ contract Rouleth
              uint256 developerFees=profitSinceChange*2/100;
              profitToSplit-=developerFees;
              if (developer.send(developerFees)==false) throw;
-             profitShared+=developerFees;
          }
          //share the loss and profits between all invest 
          //(proportionnaly. to each investor balance)
@@ -781,15 +779,10 @@ contract Rouleth
                        uint lossShare=lossSinceChange*balance[inv]/payroll;
                        balance[inv]+=profitShare;
                        balance[inv]-=lossShare;
-                       profitShared+=profitShare;
-                       lossShared+=lossShare;
                  }
              }
           // update payroll
           payroll=payroll-lossSinceChange+profitToSplit;
-          // any leftover from integer divisions are added/substracted to dev
-          balance[developer]+=profitSinceChange-profitShared;
-          balance[developer]-=lossSinceChange-lossShared;
           profitSinceChange=0; //reset Profit;
           lossSinceChange=0; //reset Loss ;
      }
