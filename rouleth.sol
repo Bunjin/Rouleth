@@ -61,11 +61,16 @@
 //   To withdraw use the function withdraw and specify the amoutn you want to withdraw in Wei.
 //   If your withdraw brings your investment under 10 eth (the min invest, subject to change)
 //   then you will execute a full withdraw and stop being an investor.
+//   Check your current investor balance in Mist by using the information functions on the left side
+//   If you want to update the balances to the last state (otherwise they are automatically
+//   updated after each invest or withdraw), you can use the function manualUpdateBalances in Mist.
 //   
 //   
-//   At start there is a limit of 50 investors (can be maxed to 150)
-//   If there is not open position and you want to invest, you can try to buyout a current investor.
+//   At start there is a limit of 50 investors (can be changed via settings up to 150)
+//   If there is no open position and you want to invest, you can try to buyout a current investor.
 //   To buyout, you have to invest more than any investor whose funds are unlocked (after 1 week grace lock period)
+//   If there are no remaining open position and all investors are under grace period, it is not possible to 
+//   become a new investor in the casino.
 //
 //   At any time an investor can add funds to his investment with the withdraw function.
 //   Doing so will refresh the lock period and secure your position.
