@@ -27,9 +27,10 @@
 //
 //  How to play ?
 //  1) Simplest (via transactions from your wallet, not an exchange) : 
-//  Just send money to the contract.
+//  Just send the value you want to bet to the contract and add enough gas 
+//  (you can enter the max gas amount of ~4,5Million, any excess is refunded anyways)
 //  This will by default place a bet on number 7
-//  Wait 2 minutes (6 blocks) and send 1 wei (or any amount, it will be refunded)
+//  Wait 2 minutes (6 blocks) and send (with enough gas) 1 wei (or any amount, it will be refunded)
 //  This will spin the wheel and you will receive * 35 your bet if you win.
 //  Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
 //
@@ -39,7 +40,7 @@
 //  Provide the appropriate input (ex: check box Red or Black)
 //  add the amount you want to bet.
 //  wait 6 blocks, then use the function spinTheWheel, this will solve the bet.
-//  You can only place one bet at a time
+//  You can only place one bet at a time before you spin the wheel.
 //  Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
 //
 //
