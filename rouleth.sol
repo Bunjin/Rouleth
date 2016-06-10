@@ -239,7 +239,7 @@ contract Rouleth
     //check number of bets in block (to prevent miner cheating and keep max reward per block <5ETH)
     modifier checkNbBetsCurrentBlock()
     {
-        if(block.number=gambles[gambles.length-1]) nbBetsCurrentBlock+=1;
+        if(block.number==gambles[gambles.length-1].blockNumber) nbBetsCurrentBlock+=1;
         else nbBetsCurrentBlock=0;
         if (nbBetsCurrentBlock>=maxBetsPerBlock) throw;
         _
