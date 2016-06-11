@@ -466,12 +466,12 @@ contract Rouleth
     else
 	{
 	    uint8 wheelResult;
-        //Spin the wheel, Reset player status and record result
-		wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
-		updateFirstActiveGamble(gambleIndex[msg.sender]);
-		gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
-        //check result against bet and pay if win
-		checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
+            //Spin the wheel, Reset player status and record result
+            wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
+	    gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
+            //check result against bet and pay if win
+	    checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
+	    updateFirstActiveGamble(gambleIndex[msg.sender]);
 	}
     }
 
