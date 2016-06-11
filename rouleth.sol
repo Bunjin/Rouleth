@@ -250,14 +250,14 @@ contract Rouleth
         if (playerStatus[msg.sender]!=Status.waitingForBet)
         {
              //case not expired
-             if (gambles[gambleIndex[msg.sender]].blockNumber+256>block.number) throw;
+             if (gambles[gambleIndex[msg.sender]].blockNumber+200>block.number) throw;
              //case expired
              else
              {
-                  //add bet to PL
-                  profitSinceChange+=gambles[gambleIndex[msg.sender]].wager;
-                  //reset user status
-                  playerStatus[msg.sender]=Status.waitingForBet;
+                  //add bet to PL and reset status
+                  solvebet(msg.sender, 255, false, 0) ;
+                  
+
               }
         }
 	_
@@ -486,9 +486,11 @@ function updateFirstActiveGamble(uint bet_id) private
 //checks if there are expired gambles
 modifier expireGambles{
     if (  (gambles.length!=0 && gambles.length-1>=firstActiveGamble ) 
-          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number )  
+          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number && !gambles[firstActiveGamble].spinned )  
     { 
 	solveBet(gambles[firstActiveGamble].player, 255, false, 0);
+       //reset user status
+       playerStatus[msg.sender]=Status.waitingForBet;
         updateFirstActiveGamble(firstActiveGamble);
     }
         _
@@ -526,6 +528,8 @@ modifier expireGambles{
 		Loss(player, result, bet_v);
                 profitSinceChange+=bet_v;
             }
+
+        
       }
 
 
@@ -556,6 +560,7 @@ modifier expireGambles{
                   win=true;                
              }
              solveBet(msg.sender,result,win,2);
+        
      }
 	
      // checkbet on lowhigh
@@ -794,7 +799,7 @@ modifier expireGambles{
 		updateBalances();
 	}
     function updateBalances() private
-    //expireGambles
+    expireGambles
     {
          //split Profits
          uint256 profitToSplit;
