@@ -803,9 +803,10 @@ modifier expireGambles{
 //***// updates balances with Profit Losses when there is a withdraw/deposit of investors
 
 	function manualUpdateBalances()
+	expireGambles
 	noEthSent
 	{
-		updateBalances();
+	    updateBalances();
 	}
     function updateBalances() private
     {
