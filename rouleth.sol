@@ -14,7 +14,7 @@
 //  (or become an investor in the Casino and share the profits/losses.) 
 //
 //
-//   website : www.whysos3rious.com/rouleth
+//   website : www.WhySoS3rious.com/Rouleth
 //               with a flashy roulette :) !
 //
 // *** coded by WhySoS3rious, 2016.                                       ***//
@@ -115,7 +115,7 @@ contract Rouleth
         uint8 wheelResult;
     }
     Gamble[] private gambles;
-	uint firstActiveGamble; //pointer to track the first non spinned and non expired gamble.
+    uint firstActiveGamble; //pointer to track the first non spinned and non expired gamble.
     //Tracking progress of players
     mapping (address=>uint) gambleIndex; //current gamble index of the player
     enum Status {waitingForBet, waitingForSpin} Status status; //gamble status
@@ -799,7 +799,6 @@ modifier expireGambles{
 		updateBalances();
 	}
     function updateBalances() private
-    expireGambles
     {
          //split Profits
          uint256 profitToSplit;
