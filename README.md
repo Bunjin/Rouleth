@@ -1,8 +1,7 @@
 #  WHYSOS3RIOUS   PRESENTS :   
 # The ROULETH 
 
-Launch on saturday 11 June at 15H UTC
-on www.whysos3rious.com/rouleth
+Full interface on : www.whysos3rious.com/rouleth
 
 http://imgur.com/9Tmqqor
 
