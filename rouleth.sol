@@ -17,6 +17,9 @@
 //   website : www.WhySoS3rious.com/Rouleth
 //               with a flashy roulette :) !
 //
+//   check latest contract version on website
+//   V 1.0.2
+//
 // *** coded by WhySoS3rious, 2016.                                       ***//
 // *** please do not copy without authorization                          ***//
 // *** contact : reddit    /u/WhySoS3rious                               ***//
@@ -466,12 +469,12 @@ contract Rouleth
     else
 	{
 	    uint8 wheelResult;
-            //Spin the wheel, Reset player status and record result
-            wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
-	    gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
-            //check result against bet and pay if win
-	    checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
-	    updateFirstActiveGamble(gambleIndex[msg.sender]);
+        //Spin the wheel, Reset player status and record result
+		wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
+		gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
+        //check result against bet and pay if win
+		checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
+		updateFirstActiveGamble(gambleIndex[msg.sender]);
 	}
     }
 
@@ -479,10 +482,12 @@ function updateFirstActiveGamble(uint bet_id) private
      {
          if (bet_id==firstActiveGamble)
          {   
-              uint index=firstActiveGamble;
+              uint index;
+              if (firstActiveGamble!=0) index=firstActiveGamble-1;
               while (true)
               {
-                 if (index<gambles.length && gambles[index].spinned){
+                 if (index<gambles.length && gambles[index].spinned)
+                 {
                      index=index+1;
                  }
                  else {break; }
@@ -913,6 +918,13 @@ modifier expireGambles{
 	    blockDelayBeforeSpin=blockDelay;
 	    return ;
 	}
+
+	function getFirstActiveDuel() constant returns(uint _firstActiveGamble)
+	{
+            _firstActiveGamble=firstActiveGamble;
+	    return ;
+	}
+
 	
     function checkMyBet(address player) constant returns(Status player_status, BetTypes bettype, uint8 input, uint value, uint8 result, bool wheelspinned, bool win, uint blockNb)
     {
@@ -923,10 +935,11 @@ modifier expireGambles{
           result=gambles[gambleIndex[player]].wheelResult;
           wheelspinned=gambles[gambleIndex[player]].spinned;
           win=gambles[gambleIndex[player]].win;
-		blockNb=gambles[gambleIndex[player]].blockNumber;
-		  return;
+	blockNb=gambles[gambleIndex[player]].blockNumber;
+	  return;
      }
 
 } //end of contract
+
 
 
