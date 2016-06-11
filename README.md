@@ -6,8 +6,8 @@
                       `-----\'.'-.....-'.'/-----'
                              '.'.-.-,_.'.'
                                '(  (..-'                                 '-'
-   WHYSOS3RIOUS   PRESENTS :   
-   The ROULETH 
+ #  WHYSOS3RIOUS   PRESENTS :   
+  # The ROULETH 
 
   Play the Roulette on ethereum blockchain !
   (or become an investor in the Casino and share the profits/losses.) 
