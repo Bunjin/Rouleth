@@ -176,7 +176,7 @@ contract Rouleth
     }
 
          //Change some settings within safety bounds
-	function changeSettings(uint newCasinoStatLimit; uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
+	function changeSettings(uint newCasinoStatLimit, uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
 	noEthSent
 	onlyDeveloper
 	{
