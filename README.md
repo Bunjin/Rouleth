@@ -99,3 +99,7 @@ http://imgur.com/9Tmqqor
    we keep wager amounts far smaller than 5 Eth so that the miner prefers to get his block reward than cheat.
    Note that a miner could place several bets on the same block to increase his potential profit from dropping a block
    For this reason we limit the number of bets per block to 2 at start (configurable later if needed).
+   
+   Finally note that this is only an autonomous contract uploaded to ethereum blockchain. It's experimental software
+   and not a safe investment. If you chose to participate, take the time to read the code and do so under your own responsability.
+   
