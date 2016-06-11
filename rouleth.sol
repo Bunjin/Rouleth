@@ -500,8 +500,6 @@ modifier expireGambles{
           && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number && !gambles[firstActiveGamble].spinned )  
     { 
 	solveBet(gambles[firstActiveGamble].player, 255, false, 0);
-       //reset user status
-       playerStatus[msg.sender]=Status.waitingForBet;
         updateFirstActiveGamble(firstActiveGamble);
     }
         _
@@ -524,6 +522,7 @@ modifier expireGambles{
      // function solve Bet once result is determined : sends to winner, adds loss to profit
      function solveBet(address player, uint8 result, bool win, uint8 multiplier) private
      {
+        playerStatus[msg.sender]=Status.waitingForBet;
         gambles[gambleIndex[player]].spinned=true;
 	uint bet_v = gambles[gambleIndex[player]].wager;
             if (win)
@@ -540,7 +539,6 @@ modifier expireGambles{
                 profitSinceChange+=bet_v;
             }
 
-        
       }
 
 
