@@ -255,7 +255,7 @@ contract Rouleth
              else
              {
                   //add bet to PL and reset status
-                  solvebet(msg.sender, 255, false, 0) ;
+                  solveBet(msg.sender, 255, false, 0) ;
                   
 
               }
