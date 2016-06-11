@@ -128,7 +128,7 @@ contract Rouleth
     { 
         developer = msg.sender;
         blockDelay=6; //delay to wait between bet and spin
-	    blockExpiration=200;
+	blockExpiration=200;
         maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
         maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners (to keep max reward<5ETH)
     }
@@ -466,31 +466,33 @@ contract Rouleth
 	}
     }
 
-		 function updateFirstActiveGamble(uint bet_id) private
+function updateFirstActiveGamble(uint bet_id) private
      {
          if (bet_id==firstActiveGamble)
          {   
               uint index;
-              while (true) 
-			 {
+              while (true)
+              {
                  if (index<gambles.length && gambles[index].spinned){
                      index=index+1;
                  }
                  else {break; }
-          }
+               }
               firstActiveGamble=index;
               return;
           }
-      }
+ }
 	
-	//checks if there are expired gambles
-	modifier expireGambles{
-        if (gambles.length>firstActiveGamble && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number) {
-            updateFirstActiveGamble(firstActiveGamble);
-			solveBet(255, false,0);
-        }
-        _
+//checks if there are expired gambles
+modifier expireGambles{
+    if (       (gambles.length==0 || gambles.length-1>=firstActiveGamble ) 
+          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number ) 
+    { 
+	solveBet(gambles[firstActiveGamble].player, 255, false, 0);
+        updateFirstActiveGamble(firstActiveGamble);
     }
+        _
+}
 	
 
      //CHECK BETS FUNCTIONS private
@@ -507,7 +509,7 @@ contract Rouleth
      }
 
      // function solve Bet once result is determined : sends to winner, adds loss to profit
-     function solveBet(uint8 result, bool win, uint8 multiplier) private
+     function solveBet(address player, uint8 result, bool win, uint8 multiplier) private
      {
         gambles[gambleIndex[msg.sender]].spinned=true;
 	uint bet_v = gambles[gambleIndex[msg.sender]].wager;
@@ -515,13 +517,13 @@ contract Rouleth
             {
 		  gambles[gambleIndex[msg.sender]].win=true;
 		  uint win_v = multiplier*bet_v;
-                  msg.sender.send(win_v);
+                  player.send(win_v);
                   lossSinceChange+=win_v-bet_v;
-		  Win(msg.sender, result, win_v);
+		  Win(player, result, win_v);
              }
             else
             {
-		Loss(msg.sender, result, bet_v);
+		Loss(player, result, bet_v);
                 profitSinceChange+=bet_v;
             }
       }
@@ -538,7 +540,7 @@ contract Rouleth
 	    {
                   win=true;  
              }
-             solveBet(result,win,35);
+             solveBet(msg.sender, result,win,35);
      }
 
 
@@ -553,7 +555,7 @@ contract Rouleth
 	    {
                   win=true;                
              }
-             solveBet(result,win,2);
+             solveBet(msg.sender,result,win,2);
      }
 	
      // checkbet on lowhigh
@@ -569,7 +571,7 @@ contract Rouleth
 	    {
                   win=true;
              }
-             solveBet(result,win,2);
+             solveBet(msg.sender,result,win,2);
      }
 
      // checkbet on color
@@ -596,7 +598,7 @@ contract Rouleth
              {
                   win=true;
              }
-             solveBet(result,win,2);
+             solveBet(msg.sender,result,win,2);
        }
 
      // checkbet on dozen
@@ -615,7 +617,7 @@ contract Rouleth
      	    {
                    win=true;                
              }
-             solveBet(result,win,3);
+             solveBet(msg.sender,result,win,3);
      }
 
      // checkbet on column
@@ -632,7 +634,7 @@ contract Rouleth
              {
                   win=true;
              }
-             solveBet(result,win,3);
+             solveBet(msg.sender,result,win,3);
       }
 
 
@@ -725,7 +727,7 @@ contract Rouleth
 
           uint256 maintenanceFees=2*msg.value/100; //2% maintenance fees
           uint256 netInvest=msg.value - maintenanceFees;
- 		  newInvest(msg.sender, netInvest);
+          newInvest(msg.sender, netInvest);
           balance[msg.sender]+=netInvest; //add invest to balance
           payroll+=netInvest;
           //send maintenance fees to developer 
@@ -766,7 +768,7 @@ contract Rouleth
                payroll-=amountToWithdrawInWei;
                //send amount to investor (with security if transaction fails)
                if (msg.sender.send(amountToWithdrawInWei)==false) throw;
-			   withdraw(msg.sender, amountToWithdrawInWei);
+	       withdraw(msg.sender, amountToWithdrawInWei);
            }
            else
            //if amountToWithdraw=0 : user wants full withdraw
@@ -797,7 +799,10 @@ contract Rouleth
          //split Profits
          uint256 profitToSplit;
          uint256 lossToSplit;
-         if (profitSinceChange>0 || lossSinceChange>0)
+         if (profitSinceChange=0 && lossSinceChange=0)
+         { return; }
+         
+         else
          {
              // Case : Global profit (more win than losses)
              // 2% fees for developer on global profit (if profit>loss)
@@ -812,7 +817,7 @@ contract Rouleth
              {
                 lossToSplit=lossSinceChange-profitSinceChange;
              }
-         }
+         
          //share the loss and profits between all invest 
          //(proportionnaly. to each investor balance)
          uint totalShared;
@@ -850,6 +855,18 @@ contract Rouleth
           }
           profitSinceChange=0; //reset Profit;
           lossSinceChange=0; //reset Loss ;
+          
+          }
+     }
+     
+     
+     //INFORMATION FUNCTIONS
+     
+     function checkProfitLossSinceInvestorChange() constant returns(uint profit, uint loss)
+     {
+        profit=profitSinceChange;
+        loss=lossSinceChange;
+        return;
      }
 
     function checkInvestorBalance(address investor) constant returns(uint balanceInWei)
@@ -858,7 +875,7 @@ contract Rouleth
           return;
      }
 
-	    function getInvestorList(uint index) constant returns(address investor, uint endLockPeriod)
+    function getInvestorList(uint index) constant returns(address investor, uint endLockPeriod)
     {
           investor=investors[index].investor;
           endLockPeriod=investors[index].time+setting_lockPeriod;
