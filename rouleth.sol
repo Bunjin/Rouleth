@@ -485,8 +485,8 @@ function updateFirstActiveGamble(uint bet_id) private
 	
 //checks if there are expired gambles
 modifier expireGambles{
-    if (  gambles.length==0 || (  (gambles.length!=0 && gambles.length-1>=firstActiveGamble ) 
-          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number )  )
+    if (  (gambles.length!=0 && gambles.length-1>=firstActiveGamble ) 
+          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number )  
     { 
 	solveBet(gambles[firstActiveGamble].player, 255, false, 0);
         updateFirstActiveGamble(firstActiveGamble);
