@@ -135,7 +135,7 @@ contract Rouleth
     { 
         developer = msg.sender;
         blockDelay=6; //delay to wait between bet and spin
-	blockExpiration=200;
+	blockExpiration=200; //delay after which gamble expires
         maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
         maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners (to keep max reward<5ETH)
         casinoStatisticalLimit=20;
