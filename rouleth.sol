@@ -470,7 +470,7 @@ function updateFirstActiveGamble(uint bet_id) private
      {
          if (bet_id==firstActiveGamble)
          {   
-              uint index;
+              uint index=firstActiveGamble;
               while (true)
               {
                  if (index<gambles.length && gambles[index].spinned){
