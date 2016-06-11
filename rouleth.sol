@@ -100,6 +100,7 @@ contract Rouleth
     uint256 maxGamble; //max gamble value manually set by config
     uint maxBetsPerBlock; //limits the number of bets per blocks to prevent miner cheating
     uint nbBetsCurrentBlock; //counts the nb of bets in the block
+    uint casinoStatisticalLimit;
     //Current gamble value possibly lower than config (<payroll/(20*35))
     uint256 currentMaxGamble; 
     //Gambles
@@ -131,6 +132,7 @@ contract Rouleth
 	blockExpiration=200;
         maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
         maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners (to keep max reward<5ETH)
+        casinoStatisticalLimit=20;
     }
 	
     modifier onlyDeveloper() {
@@ -168,13 +170,16 @@ contract Rouleth
     }
 
          //Change some settings within safety bounds
-	function changeSettings(uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
+	function changeSettings(uint newCasinoStatLimit; uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
 	noEthSent
 	onlyDeveloper
 	{
+	        // changes the statistical multiplier that guarantees the long run casino survival
+	        if (newCasinoStatLimit<20) throw;
+	        casinoStatisticalLimit=newCasinoStatLimit;
 	        //Max number of bets per block to prevent miner cheating
 	        maxBetsPerBlock=newMaxBetsBlock;
-                //MAX BET : limited by payroll/(20*35) for statiscal confidence in longevity of casino
+                //MAX BET : limited by payroll/(casinoStatisticalLimit*35) for statiscal confidence in longevity of casino
 		if (newMaxGamble<=0 || newMaxGamble>=this.balance/(20*35)) throw; 
 		else { maxGamble=newMaxGamble; }
                 //MAX NB of INVESTORS (can only increase and max of 149)
@@ -212,7 +217,7 @@ contract Rouleth
     function updateMaxBet() private
     {
     //check that maxGamble setting is still within safety bounds
-        if (payroll/(20*35) > maxGamble) 
+        if (payroll/(casinoStatisticalLimit*35) > maxGamble) 
 		{ 
 			currentMaxGamble=maxGamble;
                 }
@@ -250,7 +255,7 @@ contract Rouleth
         if (playerStatus[msg.sender]!=Status.waitingForBet)
         {
              //case not expired
-             if (gambles[gambleIndex[msg.sender]].blockNumber+200>block.number) throw;
+             if (gambles[gambleIndex[msg.sender]].blockNumber+blockExpiration>block.number) throw;
              //case expired
              else
              {
