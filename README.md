@@ -70,6 +70,10 @@ http://imgur.com/9Tmqqor
    If you want to update the balances to the last state (otherwise they are automatically
    updated after each invest or withdraw), you can use the function manualUpdateBalances in Mist.
    
+   The casino should be profitable in the long run (with 99% confidence). The maximum bet allowed has been computed
+   through statistical analysis to yield high confidence in the long run survival of the casino. The maximum bet is 
+   always smaller than the current payroll of the casino * 35 (max pay multiplier) * 200 (statistical sample size that
+   allows to have  enough confidence in survival).
    
    At start there is a limit of 50 investors (can be changed via settings up to 150)
    If there is no open position and you want to invest, you can try to buyout a current investor.
@@ -79,6 +83,8 @@ http://imgur.com/9Tmqqor
 
    At any time an investor can add funds to his investment with the withdraw function.
    Doing so will refresh the lock period and secure your position.
+   
+   
 
 
    A provably fair roulette :  note on Random Number Generation.
