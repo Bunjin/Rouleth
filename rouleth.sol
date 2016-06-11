@@ -267,7 +267,6 @@ contract Rouleth
              {
                   //add bet to PL and reset status
                   solveBet(msg.sender, 255, false, 0) ;
-                  
 
               }
         }
@@ -278,7 +277,7 @@ contract Rouleth
     enum BetTypes{ number, color, parity, dozen, column, lowhigh} BetTypes private initbetTypes;
 
     function updateStatusPlayer() private
-	expireGambles
+    expireGambles
     {
 	playerStatus[msg.sender]=Status.waitingForSpin;
 	gambleIndex[msg.sender]=gambles.length-1;
@@ -469,7 +468,6 @@ contract Rouleth
 	    uint8 wheelResult;
         //Spin the wheel, Reset player status and record result
 		wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
-		playerStatus[msg.sender]=Status.waitingForBet;
 		updateFirstActiveGamble(gambleIndex[msg.sender]);
 		gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
         //check result against bet and pay if win
