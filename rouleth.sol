@@ -511,11 +511,11 @@ modifier expireGambles{
      // function solve Bet once result is determined : sends to winner, adds loss to profit
      function solveBet(address player, uint8 result, bool win, uint8 multiplier) private
      {
-        gambles[gambleIndex[msg.sender]].spinned=true;
-	uint bet_v = gambles[gambleIndex[msg.sender]].wager;
+        gambles[gambleIndex[player]].spinned=true;
+	uint bet_v = gambles[gambleIndex[player]].wager;
             if (win)
             {
-		  gambles[gambleIndex[msg.sender]].win=true;
+		  gambles[gambleIndex[player]].win=true;
 		  uint win_v = multiplier*bet_v;
                   player.send(win_v);
                   lossSinceChange+=win_v-bet_v;
@@ -794,7 +794,7 @@ modifier expireGambles{
 		updateBalances();
 	}
     function updateBalances() private
-	expireGambles
+    //expireGambles
     {
          //split Profits
          uint256 profitToSplit;
