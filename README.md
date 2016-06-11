@@ -1,6 +1,6 @@
 #  WHYSOS3RIOUS   PRESENTS :   
 # The ROULETH 
-
+http://imgur.com/9Tmqqor
                       , ; ,   .-'"""'-.   , ; ,
                       \\|/  .'          '.  \|//
                         \-;-/   ()   ()   \-;-/
