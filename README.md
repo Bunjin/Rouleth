@@ -3,7 +3,10 @@
 
 Full interface on : www.whysos3rious.com/rouleth
 
-http://imgur.com/9Tmqqor
+Launch GIF : http://i.imgur.com/uQdcJXm.gifv
+
+Current contract address :
+http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
 
                       , ; ,   .-'"""'-.   , ; ,
                       \\|/  .'          '.  \|//
