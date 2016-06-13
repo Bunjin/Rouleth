@@ -87,7 +87,7 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
    If there are no remaining open position and all investors are under grace period, it is not possible to 
    become a new investor in the casino.
 
-   At any time an investor can add funds to his investment with the withdraw function.
+   At any time an investor can add funds to his investment with the invest function (>min invest amount).
    Doing so will refresh the lock period and secure your position.
    
    
