@@ -33,7 +33,9 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
   At launch the max stake is 0.05 ETH
 
 
-  How to play ?
+#How to play ?
+
+
   1) Simplest (via transactions from your wallet, not an exchange) : 
   Just send the value you want to bet to the contract and add enough gas 
   (you can enter the max gas amount of ~4,5Million, any excess is refunded anyways)
@@ -41,6 +43,8 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
   Wait 2 minutes (6 blocks) and send (with enough gas) 1 wei (or any amount, it will be refunded)
   This will spin the wheel and you will receive * 35 your bet if you win.
   Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
+
+
 
   2) Advanced (via contract functions, e.g. Mist, cf. tutorial on my website for more details) :
     Import the contract in Mist wallet using the code of the ABI (link on my website)
