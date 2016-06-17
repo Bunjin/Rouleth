@@ -1,4 +1,5 @@
 #Contract Security :
+www.rouleth.com/rouleth
 
 Following the DAO hack, ethereum users have realized that the security of smart contracts is something that should not be taken lightly. The hack of the DAO was performed due to a flaw in the smart contract and is not at all a bug of ethereum. The rouleth contract incorporates several security features that makes it secure against several potential attacks on smart contracts that have been identified by the community. I will list those potential threats below and explain how I secured the contract against them.
 
@@ -17,3 +18,5 @@ https://www.reddit.com/r/ethereum/comments/4ghzhv/governmentals_1100_eth_jackpot
 That's it for the list of known and important issues. If more were to be found, I will scan the contract immediatly to make sure it's not vulnerable to them. Also at any time we can use the disable betting function to stop the contract if there was some kind of cheating or hacking via the playing functions. If the investment/withdraw functions were at risk, I can also set the lockPeriod to 0, such that any investor can withdraw their funds from the contract immediatly (and does not have to wait before splitting).
 
 Any questions, concerns, comments and criticizisms ? Contact me at whysos3rious@whysos3rious.com
+
+www.rouleth.com/rouleth
