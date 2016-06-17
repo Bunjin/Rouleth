@@ -122,7 +122,7 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
    Finally note that this is only an autonomous contract uploaded to ethereum blockchain. It's experimental software
    and not a safe investment. If you chose to participate, take the time to read the code and do so under your own responsability.
    
-   #Contract Security :
+#Contract Security :
    
    Following the DAO hack, ethereum users have realized that the security oif smart contracts is something that should not be taken lightly. The hack of the DAO was performed due to a badly written smart contract and is not at all a bug of ethereum.
    The rouleth contract incorporates several security features that makes it secure against several potential attacks on smart contracts that have been identified by the community. I will list those potential threats below and explain how I secured the contract against them.
