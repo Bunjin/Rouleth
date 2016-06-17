@@ -158,5 +158,5 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
    
    That's it for the list of known and important issues. If more were to be found, I will scan the contract immediatly to make sure it's not vulnerable to them. Also at any time we can use the disable betting function to stop the contract if there was some kind of cheating or hacking via the playing functions. If the investment/withdraw functions were at risk, I can also set the lockPeriod to 0, such that any investor can withdraw their funds from the contract immediatly (and does not have to wait before splitting).
    
-   Any questions, concerns, comments and criticizisms ? Contact me at whysos3rious@whysos3rious.com
+   Any questions, concerns, comments and criticizisms ? Contact me :  whysos3rious  \at whysos3rious.com
    
