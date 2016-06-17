@@ -124,13 +124,15 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
    
 #Contract Security :
    
-   Following the DAO hack, ethereum users have realized that the security oif smart contracts is something that should not be taken lightly. The hack of the DAO was performed due to a badly written smart contract and is not at all a bug of ethereum.
+   Following the DAO hack, ethereum users have realized that the security of smart contracts is something that should not be taken lightly. The hack of the DAO was performed due to a flaw in the smart contract and is not at all a bug of ethereum.
    The rouleth contract incorporates several security features that makes it secure against several potential attacks on smart contracts that have been identified by the community. I will list those potential threats below and explain how I secured the contract against them.
    
    1) Recursive call attack : (DAO ATTACK) --> ROULETH IS NOT VULNERABLE
    http://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/
    The attacker exploits the fact that when a contract sends ether to another contract it also executes the code in the destination contract. If the destination contract is malicious, it could try to ask the first contract to send the money again. If the first contract does not update the balances before sending, the attacker is allowed to withdraw several times a single amount.
-   The rouleth code is immune to such attack for several reasons. First of all, all balances are updated before the money is sent. So even if the attacker was able to call the rouleth contract again for a second reccursive withdraw, he will not be able to withdraw more than his total balance. Moreover, since we use basic send() functions in the rouleth contract (and not call() like in the DAO), the rouleth would not send enough gas to the attacker contract, so the attacker will not be able to execute the rouleth functions again.
+   The rouleth code is immune to such attack for several reasons. First of all, all balances are updated before the money is sent. So even if the attacker was able to call the rouleth contract again for a second reccursive withdraw, he will not be able to withdraw more than his total balance. 
+   Second, since we use basic send() functions in the rouleth contract (and not call() like in the DAO), the rouleth would not send enough gas to the attacker contract, so the attacker will not be able to execute the rouleth functions again.
+   Third and most importantly, we always check if the player/investor is allowed to call the function before we allow him to. So for instance a player that tries to spin the wheel recursively, to win multiple time his payout for the same bet, would not be allowed to. When a player spins the wheel the first time, the contract changes the progress of this user from "waitingForSpin" to "waitingForBet" and since the spinTheWheel function always check that the user is indeed waitingForSpin, he will not be able to call it a second time.
    
    2) Silent failing sends : call stack attacks
    http://martin.swende.se/blog/Devcon1-and-contract-security.html
