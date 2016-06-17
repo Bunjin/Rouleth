@@ -556,7 +556,7 @@ modifier expireGambles{
 	    {
                   win=true;  
              }
-             solveBet(msg.sender, result,win,35);
+             solveBet(msg.sender, result,win,36);
      }
 
 
