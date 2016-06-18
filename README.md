@@ -30,7 +30,7 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
  
 
   Stake : Variable, check on website for the max bet.
-  Current max stake is 0.15 ETH
+  Current max stake is 0.25 ETH, there is no min bet, you can play for free (except transaction fees from ethereum)
 
 
 #How to play ?
