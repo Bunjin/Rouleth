@@ -14,7 +14,7 @@
 //  (or become an investor in the Casino and share the profits/losses.) 
 //
 //
-//   website : www.WhySoS3rious.com/Rouleth
+//   website : www.Rouleth.com
 //               with a flashy roulette :) !
 //
 //   check latest contract version on website
