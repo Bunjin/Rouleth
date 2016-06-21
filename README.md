@@ -1,7 +1,7 @@
 #  WHYSOS3RIOUS   PRESENTS :   
 # The ROULETH 
 
-Full interface on : www.rouleth.com/rouleth
+Full interface on : www.rouleth.com
 
 Launch GIF : http://i.imgur.com/uQdcJXm.gifv
 
@@ -21,7 +21,7 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
   (or become an investor in the Casino and share the profits/losses.) 
 
 
-   website : www.whysos3rious.com/rouleth
+   website : www.rouleth.com
                with a flashy roulette :) !
 
  *** coded by WhySoS3rious, 2016.                                       ***//
