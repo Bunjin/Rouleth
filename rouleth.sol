@@ -72,7 +72,7 @@ contract Rouleth
         blockDelay=6; //delay to wait between bet and spin
 	blockExpiration=200; //delay after which gamble expires
         maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
-        maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners (to keep max reward<5ETH)
+        maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners
         casinoStatisticalLimit=20;
     }
 	
@@ -182,7 +182,7 @@ contract Rouleth
        }
 
 
-    //check number of bets in block (to prevent miner cheating and keep max reward per block <5ETH)
+    //check number of bets in block (to prevent miner cheating)
     modifier checkNbBetsCurrentBlock()
     {
         if (gambles.length!=0 && block.number==gambles[gambles.length-1].blockNumber) nbBetsCurrentBlock+=1;
