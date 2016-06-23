@@ -666,8 +666,8 @@ modifier expireGambles{
                          else
                          {
                               address previous = investors[cheapestUnlockedPosition].investor;
-                              if (previous.send(balance[previous])==false) throw;
                               balance[previous]=0;
+                              if (previous.send(balance[previous])==false) throw;
                               investors[cheapestUnlockedPosition]=Investor(msg.sender, now);
                           }
                      }
