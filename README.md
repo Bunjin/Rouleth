@@ -94,13 +94,12 @@ http://etherscan.io/address/0x6dfaa563d04a77aff4c4ad2b17cf4c64d2983dc8
 
 
 #A provably fair roulette :  note on Random Number Generation.
-   The roulette result is based on the hash of the 6th block after the player commits his bet.
+   The roulette result is based on the hash of the next block after the player commits his bet.
    This guarantees a provably fair roulette with equiprobable results and non predictable
    unless someone has more computing power than all the Ethereum Network.
-  Yet Miners could try to exploit their position in 2 ways.
-   First they could try to mine 7 blocks in a row (to commit their bet based on result for a sure win),
-   but this is highly improbable and not predictible.
-   Second they could commit a bet, then wait 6 blocks and hope that they will be the one forming the 
+   
+   Yet Miners could try to exploit their position of block makers.
+   They could commit a bet, then wait 1 block and hope that they will be the one forming the 
    block on which their commited bet depends. If this is the case and the hash they find is not a
    winning one, they could decide to not share the block with the network but would lose 5 ether. But then they could still submit the same block as an uncle block and get 4.375 ether. So the cost of cheating is 0.625 eth per block.
    
