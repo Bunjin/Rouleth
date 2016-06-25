@@ -1,5 +1,5 @@
 #Contract Security :
-www.rouleth.com/rouleth
+www.rouleth.com
 
 Following the DAO hack, ethereum users have realized that the security of smart contracts is something that should not be taken lightly. The hack of the DAO was performed due to a flaw in the smart contract and is not at all a bug of ethereum. The rouleth contract incorporates several security features that makes it secure against several potential attacks on smart contracts that have been identified by the community. I will list those potential threats below and explain how I secured the contract against them.
 
