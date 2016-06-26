@@ -64,54 +64,56 @@ contract Rouleth
     //**********************************************
     //        Management & Config FUNCTIONS        //
     //**********************************************
-	function  Rouleth() private //creation settings
+    function  Rouleth() private //creation settings
     { 
         developer = msg.sender;
         blockDelay=2; //delay to wait between bet and spin
 	blockExpiration=200; //delay after which gamble expires
-        maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
+        maxGamble=500 finney; //configurable max bet
         maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners
         casinoStatisticalLimit=20;
     }
 	
-    modifier onlyDeveloper() {
-	    if (msg.sender!=developer) throw;
-	    _
+    modifier onlyDeveloper() 
+    {
+	if (msg.sender!=developer) throw;
+	_
     }
 	
-	function changeDeveloper(address new_dev)
-        noEthSent
-	    onlyDeveloper
-	{
-		developer=new_dev;
-	}
+    function changeDeveloper(address new_dev)
+    noEthSent
+    onlyDeveloper
+    {
+	developer=new_dev;
+    }
 
 
     //Activate, Deactivate Betting
     enum States{active, inactive} States private state;
-	function disableBetting()
-        noEthSent
-	onlyDeveloper
-	{
-            state=States.inactive;
-	}
-	function enableBetting()
-	onlyDeveloper
-        noEthSent
-	{
-            state=States.active;
-	}
+	
+    function disableBetting()
+    noEthSent
+    onlyDeveloper
+    {
+        state=States.inactive;
+    }
+    function enableBetting()
+    onlyDeveloper
+    noEthSent
+    {
+        state=States.active;
+    }
     
-	modifier onlyActive
+    modifier onlyActive
     {
         if (state==States.inactive) throw;
         _
     }
 
-         //Change some settings within safety bounds
-	function changeSettings(uint newCasinoStatLimit, uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
-	noEthSent
-	onlyDeveloper
+    //Change some settings within safety bounds
+    function changeSettings(uint newCasinoStatLimit, uint newMaxBetsBlock, uint256 newMaxGamble, uint8 newMaxInvestor, uint256 newMinInvestment, uint256 newLockPeriod, uint8 newBlockDelay, uint8 newBlockExpiration)
+    noEthSent
+    onlyDeveloper
 	{
 	        // changes the statistical multiplier that guarantees the long run casino survival
 	        if (newCasinoStatLimit<10) throw;
