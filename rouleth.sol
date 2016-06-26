@@ -118,7 +118,7 @@ contract Rouleth
 	        //Max number of bets per block to prevent miner cheating
 	        maxBetsPerBlock=newMaxBetsBlock;
                 //MAX BET : limited by payroll/(casinoStatisticalLimit*35) for statiscal confidence in longevity of casino
-		if (newMaxGamble<=0 || newMaxGamble>=this.balance/(20*35)) throw; 
+		if (newMaxGamble<=0) throw; 
 		else { maxGamble=newMaxGamble; }
                 //MAX NB of INVESTORS (can only increase and max of 149)
                 if (newMaxInvestor<setting_maxInvestors || newMaxInvestor>149) throw;
@@ -146,8 +146,8 @@ contract Rouleth
     //without specifying any type of bet.
     function () 
    {
-       //if player is not playing : bet on 7
-       if (playerStatus[msg.sender]==Status.waitingForBet)  betOnNumber(7);
+       //if player is not playing : bet on Red
+       if (playerStatus[msg.sender]==Status.waitingForBet)  betOnColor(true,false);
        //if player is already playing, spin the wheel
        else spinTheWheel();
     } 
