@@ -403,10 +403,11 @@ contract Rouleth
 	}
     }
 
+//update pointer of first gamble not spinned
 function updateFirstActiveGamble() private
      {
-              for (uint k=firstActiveGamble; k=<firstActiveGamble+50; k++) 
-              //limit the update to 50 to cap the gas cost
+              for (uint k=firstActiveGamble; k<=firstActiveGamble+50; k++) 
+              //limit the update to 50 to cap the gas cost and share the work among users
               {
                  if (k>=gambles.length || !gambles[k].spinned)
                  {
@@ -418,12 +419,13 @@ function updateFirstActiveGamble() private
 	
 //checks if there are expired gambles
 modifier expireGambles{
-    if (  (gambles.length!=0 && gambles.length-1>=firstActiveGamble ) 
-          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number && !gambles[firstActiveGamble].spinned )  
+    if (  gambles.length!=0 && gambles.length-1>=firstActiveGamble 
+          && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number 
+          && !gambles[firstActiveGamble].spinned )  
     { 
-	solveBet(gambles[firstActiveGamble].player, 255, false, 0);
-        updateFirstActiveGamble();
+	solveBet(gambles[firstActiveGamble].player, 255, false, 0); //expires
     }
+        updateFirstActiveGamble(); //update pointer
         _
 }
 	
