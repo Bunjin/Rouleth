@@ -14,8 +14,7 @@
 //  (or become an investor in the Casino and share the profits/losses.) 
 //
 //
-//   website with all info to play : www.Rouleth.com
-//   with a flashy roulette :) !
+//   Full GUI on website with all info to play : www.Rouleth.com
 //
 //   Github : https://github.com/Bunjin/Rouleth
 //
@@ -28,8 +27,6 @@
 //
 //
 //  Stake : Variable, check on website for the max bet.
-//  At launch the max stake is 0.05 ETH
-//
 
 contract Rouleth
 {
@@ -69,7 +66,7 @@ contract Rouleth
 	function  Rouleth() private //creation settings
     { 
         developer = msg.sender;
-        blockDelay=6; //delay to wait between bet and spin
+        blockDelay=2; //delay to wait between bet and spin
 	blockExpiration=200; //delay after which gamble expires
         maxGamble=50 finney; //0.05 ether as max bet to start (payroll of 35 eth)
         maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners
@@ -116,7 +113,7 @@ contract Rouleth
 	onlyDeveloper
 	{
 	        // changes the statistical multiplier that guarantees the long run casino survival
-	        if (newCasinoStatLimit<20) throw;
+	        if (newCasinoStatLimit<10) throw;
 	        casinoStatisticalLimit=newCasinoStatLimit;
 	        //Max number of bets per block to prevent miner cheating
 	        maxBetsPerBlock=newMaxBetsBlock;
@@ -129,13 +126,13 @@ contract Rouleth
                 //MIN INVEST : 
                 setting_minInvestment=newMinInvestment;
                 //Invest LOCK PERIOD
-                if (setting_lockPeriod>5184000) throw; //2 months max
+                if (setting_lockPeriod>90 days) throw; //3 months max
                 setting_lockPeriod=newLockPeriod;
-		        //Delay before roll :
+		//Delay before roll :
 		if (blockDelay<1) throw;
-		        blockDelay=newBlockDelay;
+		blockDelay=newBlockDelay;
                 updateMaxBet();
-		if (newBlockExpiration<100) throw;
+		if (newBlockExpiration<50) throw;
 		blockExpiration=newBlockExpiration;
 	}
  
@@ -608,7 +605,7 @@ modifier expireGambles{
     //Investor lockPeriod
     //lock time to avoid invest and withdraw for refresh only
     //also time during which you cannot be outbet by a new investor if it is full
-    uint256 setting_lockPeriod=604800 ; //1 week in sec
+    uint256 setting_lockPeriod=30 days ; //1 week in sec
     uint256 setting_minInvestment=10 ether; //min amount to send when using invest()
     //if full and unlocked position, indicates the cheapest amount to outbid
     //otherwise cheapestUnlockedPosition=255
@@ -851,7 +848,7 @@ modifier expireGambles{
 	    return ;
 	}
 
-	function getFirstActiveDuel() constant returns(uint _firstActiveGamble)
+	function getFirstActiveGamble() constant returns(uint _firstActiveGamble)
 	{
             _firstActiveGamble=firstActiveGamble;
 	    return ;
