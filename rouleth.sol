@@ -15,6 +15,10 @@
 //
 //
 //   Full GUI on website with all info to play : www.Rouleth.com
+//   All documentation on playing and investing are on the website.
+//
+//   News : www.reddit.com/r/Rouleth
+//   twitter : https://twitter.com/TheRouleth
 //
 //   Github : https://github.com/Bunjin/Rouleth
 //
@@ -386,8 +390,8 @@ contract Rouleth
 
 //***//function to spin
     function spinTheWheel()
-    checkWaitingForSpin
     noEthSent
+    checkWaitingForSpin
     {
         //check that the player waited for the delay before spin
         //and also that the bet is not expired
@@ -600,7 +604,7 @@ modifier expireGambles{
     //Investor lockPeriod
     //lock time to avoid invest and withdraw for refresh only
     //also time during which you cannot be outbet by a new investor if it is full
-    uint256 setting_lockPeriod=30 days ; //1 week in sec
+    uint256 setting_lockPeriod=30 days ;
     uint256 setting_minInvestment=10 ether; //min amount to send when using invest()
     //if full and unlocked position, indicates the cheapest amount to outbid
     //otherwise cheapestUnlockedPosition=255
@@ -719,9 +723,9 @@ modifier expireGambles{
                uint256 fullAmount=balance[msg.sender];
                payroll-=fullAmount;
                balance[msg.sender]=0;
-               if (msg.sender.send(fullAmount)==false) throw;
                //delete investor
                delete investors[investorID];
+               if (msg.sender.send(fullAmount)==false) throw;
    	       withdraw(msg.sender, fullAmount);
             }
           updateMaxBet();
@@ -849,6 +853,12 @@ modifier expireGambles{
             _firstActiveGamble=firstActiveGamble;
 	    return ;
 	}
+	
+	function getPayroll() constant returns(uint _payroll)
+	{
+            _payroll=payroll;
+	    return ;
+	}
 
 	
     function checkMyBet(address player) constant returns(Status player_status, BetTypes bettype, uint8 input, uint value, uint8 result, bool wheelspinned, bool win, uint blockNb)
@@ -860,7 +870,7 @@ modifier expireGambles{
           result=gambles[gambleIndex[player]].wheelResult;
           wheelspinned=gambles[gambleIndex[player]].spinned;
           win=gambles[gambleIndex[player]].win;
-	blockNb=gambles[gambleIndex[player]].blockNumber;
+          blockNb=gambles[gambleIndex[player]].blockNumber;
 	  return;
      }
      
