@@ -42,12 +42,14 @@ contract Rouleth
     //Current gamble value possibly lower than config (<payroll/(20*35))
     uint256 currentMaxGamble; 
     //Gambles
+    enum BetTypes{number, color, parity, dozen, column, lowhigh} 
     struct Gamble
     {
 	address player;
         bool spinned; //Was the rouleth spinned ?
 	bool win;
-	BetTypes betType; //number/color/dozen/oddeven
+	//Possible bet types
+        BetTypes betType;
 	uint8 input; //stores number, color, dozen or oddeven
 	uint256 wager;
 	uint256 blockNumber; //block of bet -1
@@ -57,8 +59,7 @@ contract Rouleth
     uint firstActiveGamble; //pointer to track the first non spinned and non expired gamble.
     //Tracking progress of players
     mapping (address=>uint) gambleIndex; //current gamble index of the player
-    enum Status {waitingForBet, waitingForSpin} Status status; //gamble status
-    mapping (address=>Status) playerStatus; //progress of the player's gamble
+    enum Status {waitingForBet, waitingForSpin} mapping (address=>Status) playerStatus; //records current status of player
 
     //**********************************************
     //        Management & Config FUNCTIONS        //
@@ -205,8 +206,7 @@ contract Rouleth
 	_
 	}
 
-    //Possible bet types
-    enum BetTypes{ number, color, parity, dozen, column, lowhigh} BetTypes private initbetTypes;
+
 
     function updateStatusPlayer() private
     expireGambles
