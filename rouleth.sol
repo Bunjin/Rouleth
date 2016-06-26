@@ -39,7 +39,7 @@ contract Rouleth
     uint maxBetsPerBlock; //limits the number of bets per blocks to prevent miner cheating
     uint nbBetsCurrentBlock; //counts the nb of bets in the block
     uint casinoStatisticalLimit;
-    //Current gamble value possibly lower than config (<payroll/(20*35))
+    //Current gamble value possibly lower than config (<payroll/(casinoStatisticalLimit*35))
     uint256 currentMaxGamble; 
     //Gambles
     enum BetTypes{number, color, parity, dozen, column, lowhigh} 
@@ -162,7 +162,7 @@ contract Rouleth
                 }
 	else
 		{ 
-			currentMaxGamble = payroll/(20*35);
+			currentMaxGamble = payroll/(casinoStatisticalLimit*35);
 		}
      }
 
@@ -177,6 +177,7 @@ contract Rouleth
 		}
                 else
                 { playerBetValue=msg.value; }
+         return;
        }
 
 
@@ -206,13 +207,11 @@ contract Rouleth
 	_
 	}
 
-
-
     function updateStatusPlayer() private
     expireGambles
     {
 	playerStatus[msg.sender]=Status.waitingForSpin;
-	gambleIndex[msg.sender]=gambles.length-1;
+	gambleIndex[msg.sender]=gambles.length;
      }
 
 //***//bet on Number	
@@ -221,12 +220,12 @@ contract Rouleth
     onlyActive
     checkNbBetsCurrentBlock
     {
+        updateStatusPlayer();
         //check that number chosen is valid and records bet
         if (numberChosen>36) throw;
-		//check that wager is under limit
+        //adapts wager to casino limits
         uint256 betValue= checkBetValue();
-	    gambles.push(Gamble(msg.sender, false, false, BetTypes.number, numberChosen, betValue, block.number, 37));
-        updateStatusPlayer();
+	gambles.push(Gamble(msg.sender, false, false, BetTypes.number, numberChosen, betValue, block.number, 37));
     }
 
 //***// function betOnColor
@@ -238,6 +237,7 @@ contract Rouleth
     onlyActive
     checkNbBetsCurrentBlock
     {
+        updateStatusPlayer();
         uint8 count;
         uint8 input;
         if (Red) 
@@ -253,8 +253,7 @@ contract Rouleth
         if (count!=1) throw;
 	//check that wager is under limit
         uint256 betValue= checkBetValue();
-	    gambles.push(Gamble(msg.sender, false, false, BetTypes.color, input, betValue, block.number, 37));
-        updateStatusPlayer();
+	gambles.push(Gamble(msg.sender, false, false, BetTypes.color, input, betValue, block.number, 37));
     }
 
 //***// function betOnLow_High
@@ -266,6 +265,7 @@ contract Rouleth
     onlyActive
     checkNbBetsCurrentBlock
     {
+        updateStatusPlayer();
         uint8 count;
         uint8 input;
         if (Low) 
@@ -282,7 +282,6 @@ contract Rouleth
 	//check that wager is under limit
         uint256 betValue= checkBetValue();
 	gambles.push(Gamble(msg.sender, false, false, BetTypes.lowhigh, input, betValue, block.number, 37));
-        updateStatusPlayer();
     }
 
 //***// function betOnOdd_Even
@@ -294,6 +293,7 @@ contract Rouleth
     onlyActive
     checkNbBetsCurrentBlock
     {
+        updateStatusPlayer();
         uint8 count;
         uint8 input;
         if (Even) 
@@ -310,7 +310,6 @@ contract Rouleth
 	//check that wager is under limit
         uint256 betValue= checkBetValue();
 	gambles.push(Gamble(msg.sender, false, false, BetTypes.parity, input, betValue, block.number, 37));
-        updateStatusPlayer();
     }
 
 
@@ -320,9 +319,6 @@ contract Rouleth
 //     //input : 1 for second dozen
 //     //input : 2 for third dozen
     function betOnDozen(bool First, bool Second, bool Third)
-    checkWaitingForBet
-    onlyActive
-    checkNbBetsCurrentBlock
     {
          betOnColumnOrDozen(First,Second,Third, BetTypes.dozen);
     }
@@ -334,15 +330,16 @@ contract Rouleth
 //     //input : 1 for second column
 //     //input : 2 for third column
     function betOnColumn(bool First, bool Second, bool Third)
-    checkWaitingForBet
-    onlyActive
-    checkNbBetsCurrentBlock
     {
          betOnColumnOrDozen(First, Second, Third, BetTypes.column);
      }
 
     function betOnColumnOrDozen(bool First, bool Second, bool Third, BetTypes bet) private
+    checkWaitingForBet
+    onlyActive
+    checkNbBetsCurrentBlock
     { 
+        updateStatusPlayer();
         uint8 count;
         uint8 input;
         if (First) 
@@ -363,8 +360,7 @@ contract Rouleth
         if (count!=1) throw;
 	//check that wager is under limit
         uint256 betValue= checkBetValue();
-	    gambles.push(Gamble(msg.sender, false, false, bet, input, betValue, block.number, 37));
-        updateStatusPlayer();
+	gambles.push(Gamble(msg.sender, false, false, bet, input, betValue, block.number, 37));
     }
 
     //**********************************************
@@ -392,36 +388,33 @@ contract Rouleth
     noEthSent
     {
         //check that the player waited for the delay before spin
-        //and also that the bet is not expired (200 blocks limit)
+        //and also that the bet is not expired
 	uint playerblock = gambles[gambleIndex[msg.sender]].blockNumber;
 	if (block.number<playerblock+blockDelay || block.number>playerblock+blockExpiration) throw;
-    else
+        else
 	{
 	    uint8 wheelResult;
-        //Spin the wheel, Reset player status and record result
-		wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
-		gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
-        //check result against bet and pay if win
-		checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
-		updateFirstActiveGamble(gambleIndex[msg.sender]);
+            //Spin the wheel, Reset player status and record result
+	    wheelResult = uint8(uint256(block.blockhash(playerblock+blockDelay))%37);
+	    gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
+            //check result against bet and pay if win
+	    checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
+	    updateFirstActiveGamble(gambleIndex[msg.sender]);
 	}
     }
 
 function updateFirstActiveGamble(uint bet_id) private
      {
-         if (bet_id==firstActiveGamble)
+         if (bet_id==firstActiveGamble) //otherwise no need to update
          {   
-              uint index;
-              if (firstActiveGamble!=0) index=firstActiveGamble-1;
-              while (true)
+              for (uint k=firstActiveGamble; k=<firstActiveGamble+50; k++) //limit the update to 50 to cap the gas cost
               {
-                 if (index<gambles.length && gambles[index].spinned)
+                 if (k>=gambles.length || !gambles[k].spinned)
                  {
-                     index=index+1;
+                    firstActiveGamble=k;
+                    break; 
                  }
-                 else {break; }
-               }
-              firstActiveGamble=index;
+              }
               return;
           }
  }
