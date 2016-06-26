@@ -19,7 +19,7 @@
 //   Github : https://github.com/Bunjin/Rouleth
 //
 //   check latest contract version on website
-//   V 1.0.2
+//   V 1.2
 //
 // *** coded by WhySoS3rious, 2016.                                       ***//
 // *** please do not copy without authorization                          ***//
@@ -90,7 +90,7 @@ contract Rouleth
     //Activate, Deactivate Betting
     enum States{active, inactive} States private state;
 	function disableBetting()
-    noEthSent
+        noEthSent
 	onlyDeveloper
 	{
             state=States.inactive;
@@ -451,6 +451,7 @@ modifier expireGambles{
 	uint bet_v = gambles[gambleIndex[player]].wager;
             if (win)
             {
+                  if (player!=gambles[gambleIndex[player]].player) throw; //security failcheck
 		  gambles[gambleIndex[player]].win=true;
 		  uint win_v = multiplier*bet_v;
                   lossSinceChange+=win_v-bet_v;
@@ -729,6 +730,7 @@ modifier expireGambles{
 	function manualUpdateBalances()
 	expireGambles
 	noEthSent
+	onlyDeveloper
 	{
 	    updateBalances();
 	}
@@ -857,6 +859,19 @@ modifier expireGambles{
           wheelspinned=gambles[gambleIndex[player]].spinned;
           win=gambles[gambleIndex[player]].win;
 	blockNb=gambles[gambleIndex[player]].blockNumber;
+	  return;
+     }
+     
+         function getGamblesList(uint256 index) constant returns(address player, BetTypes bettype, uint8 input, uint value, uint8 result, bool wheelspinned, bool win, uint blockNb)
+    {
+          player=gambles[index].player;
+          bettype=gambles[index].betType;
+          input=gambles[index].input;
+          value=gambles[index].wager;
+          result=gambles[index].wheelResult;
+          wheelspinned=gambles[index].spinned;
+          win=gambles[index].win;
+	  blockNb=gambles[index].blockNumber;
 	  return;
      }
 
