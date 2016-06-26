@@ -464,9 +464,9 @@ modifier expireGambles{
             {
 		  gambles[gambleIndex[player]].win=true;
 		  uint win_v = multiplier*bet_v;
-                  player.send(win_v);
                   lossSinceChange+=win_v-bet_v;
 		  Win(player, result, win_v);
+                  player.send(win_v);
              }
             else
             {
