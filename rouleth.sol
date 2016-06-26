@@ -399,15 +399,14 @@ contract Rouleth
 	    gambles[gambleIndex[msg.sender]].wheelResult=wheelResult;
             //check result against bet and pay if win
 	    checkBetResult(wheelResult, gambles[gambleIndex[msg.sender]].betType);
-	    updateFirstActiveGamble(gambleIndex[msg.sender]);
+	    updateFirstActiveGamble();
 	}
     }
 
-function updateFirstActiveGamble(uint bet_id) private
+function updateFirstActiveGamble() private
      {
-         if (bet_id==firstActiveGamble) //otherwise no need to update
-         {   
-              for (uint k=firstActiveGamble; k=<firstActiveGamble+50; k++) //limit the update to 50 to cap the gas cost
+              for (uint k=firstActiveGamble; k=<firstActiveGamble+50; k++) 
+              //limit the update to 50 to cap the gas cost
               {
                  if (k>=gambles.length || !gambles[k].spinned)
                  {
@@ -415,8 +414,6 @@ function updateFirstActiveGamble(uint bet_id) private
                     break; 
                  }
               }
-              return;
-          }
  }
 	
 //checks if there are expired gambles
@@ -425,7 +422,7 @@ modifier expireGambles{
           && gambles[firstActiveGamble].blockNumber + blockExpiration <= block.number && !gambles[firstActiveGamble].spinned )  
     { 
 	solveBet(gambles[firstActiveGamble].player, 255, false, 0);
-        updateFirstActiveGamble(firstActiveGamble);
+        updateFirstActiveGamble();
     }
         _
 }
