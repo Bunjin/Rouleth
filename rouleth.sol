@@ -74,7 +74,7 @@ contract Rouleth
         blockDelay=2; //delay to wait between bet and spin
 	blockExpiration=200; //delay after which gamble expires
         maxGamble=500 finney; //configurable max bet
-        maxBetsPerBlock=2; // limit of 2 bets per block, to prevent multiple bets per miners
+        maxBetsPerBlock=4; // limit of bets per block, to prevent multiple bets per miners
         casinoStatisticalLimit=20;
     }
 	
