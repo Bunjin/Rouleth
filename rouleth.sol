@@ -182,7 +182,7 @@ contract Rouleth
         updateMaxBet();
 		if (msg.value > currentMaxGamble) //if above max, send difference back
 		{
-		    msg.sender.send(msg.value-currentMaxGamble);
+			if (msg.sender.send(msg.value-currentMaxGamble)==false) throw;
 		    playerBetValue=currentMaxGamble;
 		}
                 else
@@ -388,7 +388,10 @@ contract Rouleth
     //Prevents accidental sending of Eth when you shouldn't
     modifier noEthSent()
     {
-        if (msg.value>0) msg.sender.send(msg.value);
+        if (msg.value>0) 
+		{
+				if (msg.sender.send(msg.value)==false) throw;
+		}
         _
     }
 
@@ -466,7 +469,7 @@ modifier expireGambles{
 		  uint win_v = multiplier*bet_v;
                   lossSinceChange+=win_v-bet_v;
 		  Win(player, result, win_v);
-                  player.send(win_v);
+				if (player.send(win_v)==false) throw;
              }
             else
             {
