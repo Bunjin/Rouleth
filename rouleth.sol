@@ -14,7 +14,11 @@
 //  (or become an investor in the Casino and share the profits/losses.) 
 //
 //
-//   Full GUI on website with all info to play : www.Rouleth.com
+//   Full GUI on website with all info to play : 
+//                   
+//                  www.Rouleth.com
+//
+//
 //   All documentation on playing and investing are on the website.
 //
 //   News : www.reddit.com/r/Rouleth
@@ -598,7 +602,8 @@ modifier expireGambles{
 	    address investor;
 	    uint256 time;
     }	
-	Investor[150] private investors ;
+	
+    Investor[200] private investors ;
     //Balances of the investors
     mapping (address=>uint256) balance; 
     //Investor lockPeriod
@@ -808,10 +813,10 @@ modifier expireGambles{
      
      //INFORMATION FUNCTIONS
      
-     function checkProfitLossSinceInvestorChange() constant returns(uint profit, uint loss)
+     function checkProfitLossSinceInvestorChange() constant returns(uint profit_since_update_balances, uint loss_since_update_balances)
      {
-        profit=profitSinceChange;
-        loss=lossSinceChange;
+        profit_since_update_balances=profitSinceChange;
+        loss_since_update_balances=lossSinceChange;
         return;
      }
 
@@ -854,9 +859,9 @@ modifier expireGambles{
 	    return ;
 	}
 	
-	function getPayroll() constant returns(uint _payroll)
+	function getPayroll() constant returns(uint payroll_at_last_update_balances)
 	{
-            _payroll=payroll;
+            payroll_at_last_update_balances=payroll;
 	    return ;
 	}
 
