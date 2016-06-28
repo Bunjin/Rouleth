@@ -606,7 +606,7 @@ modifier expireGambles{
 	    uint256 time;
     }	
 	
-    Investor[200] private investors ;
+    Investor[300] private investors ;
     //Balances of the investors
     mapping (address=>uint256) balance; 
     //Investor lockPeriod
