@@ -78,7 +78,7 @@ contract Rouleth
         blockDelay=2; //delay to wait between bet and spin
 	blockExpiration=200; //delay after which gamble expires
         maxGamble=500 finney; //configurable max bet
-        maxBetsPerBlock=4; // limit of bets per block, to prevent multiple bets per miners
+        maxBetsPerBlock=5; // limit of bets per block, to prevent multiple bets per miners
         casinoStatisticalLimit=20;
     }
 	
@@ -606,7 +606,7 @@ modifier expireGambles{
 	    uint256 time;
     }	
 	
-    Investor[300] private investors ;
+    Investor[250] private investors ;
     //Balances of the investors
     mapping (address=>uint256) balance; 
     //Investor lockPeriod
