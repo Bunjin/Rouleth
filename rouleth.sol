@@ -626,7 +626,7 @@ modifier expireGambles{
           // reset the position counters to values out of bounds
           openPosition=255;
           cheapestUnlockedPosition=255;
-          minCurrentInvest=10000000000000000000000000;//
+          minCurrentInvest=1000000000 ether;
           // update balances before altering the investor shares
           updateBalances();
           // loop over investor's array to find if already investor, 
@@ -663,8 +663,8 @@ modifier expireGambles{
                          {
                               address previous = investors[cheapestUnlockedPosition].investor;
                               balance[previous]=0;
-                              if (previous.send(balance[previous])==false) throw;
                               investors[cheapestUnlockedPosition]=Investor(msg.sender, now);
+                              if (previous.send(balance[previous])==false) throw;
                           }
                      }
             }
