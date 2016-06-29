@@ -31,7 +31,8 @@ The casino should be profitable in the long run (with 99% confidence). The maxim
    At any time an investor can add funds to his investment with the invest function (>min invest amount).
    Doing so will refresh the lock period and secure your position.
    
-#How to invest ? **INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
+#How to invest ? 
+**INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
 1) Without Mist Send the amount you want to invest to the rouleth contract address (check on the address on the website) and add the following transaction data 0xe8b5e51f also set the gas to 1million. 
 At any time after the lock period, you can use a transaction to withdraw fully your funds. Send a transaction to the rouleth contract address (check on the address on the website) with the following data 0x2037fcbf0000000000000000000000000000000000000000000000000000000000000000 and add 1million gas but not ether.
 
