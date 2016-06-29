@@ -13,7 +13,7 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
 
 
    website : www.rouleth.com
-               with a flashy roulette :) !
+   with a gorgeous roulette :) !
 
  *** coded by WhySoS3rious, 2016.                                       ***//
  *** please do not copy without authorization                          ***//
@@ -21,19 +21,20 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
  
 
   Stake : Variable, check on website for the max bet.
-  Current max stake is 0.25 ETH, there is no min bet, you can play for free (except transaction fees from ethereum)
+  There is no min bet, you can play for free (except transaction fees from ethereum blockchain of about 0.003eth per full game)
 
 
 #How to play ?
 
 
-  1) Simplest (via transactions from your wallet, **not an exchange**) : 
-  Just send the value you want to bet to the contract and add enough gas 
-  (you can enter the max gas amount of  300 000, any excess is refunded anyways)
-  This will by default place a bet on number on red
+  1) Simplest (via transactions from your wallet, **not an exchange nor a contract**) : 
+  Just *send the value you want to bet* (check max bet on website) *to the contract address* and add enough gas 
+  (you can enter the max *gas amount of  300 000*, any excess is refunded anyways)
+  This will by default place a *bet on number on red*
   Once your bet has been recorded wait 15 secs (1 block) and send (with 200 000) 1 wei (or any amount, it will be refunded)
   This will spin the wheel and you will receive 2 times your bet if you win.
   Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
+  Any amount you send in excess of the max bet or when spinning the wheel is immediatly refunded.
 
 
 
@@ -42,6 +43,7 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
   Use the website to select a bet on the board. Use the transaction data displayed in your favorite wallet and send the amount you want to bet (check the max bet on the website). Be sure to add the amount of gas displayed on the website.
   Enter your wallet's address on the website and verify that your bet has been recorded (wait for the ethereum blockchain to update). After 12 secs you can use the new transaction informations displayed on the website to spin the wheel sending a new transaction.
   Once the ethereum blockchain has solved your bet (~10secs), you can see the wheel spin and check the result by using the update button on the website (if you haven't changed the entered address).
+  If you want to play again, just select a new bet and follow the same process.
   
   3) Advanced with Mist : 
   Import the contract in Mist wallet using the code of the ABI (link on my website)
