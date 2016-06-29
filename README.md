@@ -27,7 +27,7 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
 #How to play ?
 
 
-  1) Simplest (via transactions from your wallet, not an exchange) : 
+  1) Simplest (via transactions from your wallet, **not an exchange**) : 
   Just send the value you want to bet to the contract and add enough gas 
   (you can enter the max gas amount of  300 000, any excess is refunded anyways)
   This will by default place a bet on number on red
@@ -37,12 +37,20 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
 
 
 
-  2) Advanced (via contract functions, e.g. Mist, cf. tutorial on my website for more details) :
-    Import the contract in Mist wallet using the code of the ABI (link on my website)
+  2) Easy Play with website www.rouleth.com :
+  (cf. tutorial www.rouleth.com/how_to_play.pdf)
+  Use the website to select a bet on the board. Use the transaction data displayed in your favorite wallet and send the amount you want to bet (check the max bet on the website). Be sure to add the amount of gas displayed on the website.
+  Enter your wallet's address on the website and verify that your bet has been recorded (wait for the ethereum blockchain to update). After 12 secs you can use the new transaction informations displayed on the website to spin the wheel sending a new transaction.
+  Once the ethereum blockchain has solved your bet (~10secs), you can see the wheel spin and check the result by using the update button on the website (if you haven't changed the entered address).
+  
+  
+  
+  3) Advanced with Mist : 
+  Import the contract in Mist wallet using the code of the ABI (link on my website)
   Use the functions (betOnNumber, betOnColor ...) to place any type of bet you want
   Provide the appropriate input (ex: check box Red or Black)
   add the amount you want to bet.
-  wait 6 blocks, then use the function spinTheWheel, this will solve the bet.
+  wait 1 blocks, then use the function spinTheWheel, this will solve the bet.
   You can only place one bet at a time before you spin the wheel.
   Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
 
