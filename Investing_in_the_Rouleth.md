@@ -31,6 +31,12 @@ The casino should be profitable in the long run (with 99% confidence). The maxim
    At any time an investor can add funds to his investment with the invest function (>min invest amount).
    Doing so will refresh the lock period and secure your position.
    
+#Investment Risks :
+Provably fair : 
+The contract uses future block hashes as a source of pseudo randomness. Miners could try to cheat and have better odds than normal players. We investigated this issue and it resulted that only miners with more than 3% of the network's power could do so profitably. There are only 7 pools that are of this size or bigger. There is a way to monitor cheating in this way through blockchain data analysis. We thus consider this risk to be non very likely. The results of the analysis can be found here : https://github.com/Bunjin/Rouleth/blob/master/Provably_Fair_No_Cheating.md
+Contract safety (can the funds be hacked ?) : This is the second version of the rouleth and the first version was live for a month with ~200 Ether and no funds have been stolen in any way. The contract was already immune to the hack that affected the DAO and any other known exploit but we hardened the security of the contract for this release. The contract was reviewed extensively by several ethereum developers and no concerns were expressed so far. Also, there are failsafes that allow investors to withdraw funds immediatly in case we notice there is a problem so we can always act preventively.
+All details on contract security can be found here : https://github.com/Bunjin/Rouleth/blob/master/Security.md
+   
 #How to invest ? 
 **INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
 1) Without Mist Send the amount you want to invest to the rouleth contract address (check on the address on the website) and add the following transaction data 0xe8b5e51f also set the gas to 1million. 
@@ -43,14 +49,10 @@ However without mist wallet you will not be able to check your balances nor to p
    
 2) With Mist wallet :
    Import the contract in Mist Wallet using the code of the ABI (link on my website)
-   Use the Invest function with an amount >10 Ether (can change, check in Mist)
-   
-   
-
-   
+   Use the Invest function and the withdraw function to manage your balance.
+   Use the information functions to check your balance and check the profit and loss not yet updated.
    
 
-   
    Finally note that this is only an autonomous contract uploaded to ethereum blockchain. It's experimental software
    and not a safe investment. If you chose to participate, take the time to read the code and do so under your own responsability.
    
