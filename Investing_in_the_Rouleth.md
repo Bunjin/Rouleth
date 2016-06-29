@@ -46,9 +46,6 @@ At any time after the lock period, you can use a transaction to withdraw fully y
 
 However without mist wallet you will not be able to check your balances nor to perform partial withdraws. 
    
-   
-   **INVESTMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
-   
 *2) With Mist wallet :*
    Import the contract in Mist Wallet using the code of the ABI (link on my website)
    Use the Invest function and the withdraw function to manage your balance.
