@@ -32,9 +32,10 @@ The casino should be profitable in the long run (with 99% confidence). The maxim
    Doing so will refresh the lock period and secure your position.
    
 #Investment Risks :
-Provably fair : 
+**Provably fair and Cheat proof:** 
 The contract uses future block hashes as a source of pseudo randomness. Miners could try to cheat and have better odds than normal players. We investigated this issue and it resulted that only miners with more than 3% of the network's power could do so profitably. There are only 7 pools that are of this size or bigger. There is a way to monitor cheating in this way through blockchain data analysis. We thus consider this risk to be non very likely. The results of the analysis can be found here : https://github.com/Bunjin/Rouleth/blob/master/Provably_Fair_No_Cheating.md
-Contract safety (can the funds be hacked ?) : This is the second version of the rouleth and the first version was live for a month with ~200 Ether and no funds have been stolen in any way. The contract was already immune to the hack that affected the DAO and any other known exploit but we hardened the security of the contract for this release. The contract was reviewed extensively by several ethereum developers and no concerns were expressed so far. Also, there are failsafes that allow investors to withdraw funds immediatly in case we notice there is a problem so we can always act preventively.
+
+**Contract safety (can the funds be hacked ?) :** This is the second version of the rouleth and the first version was live for a month with ~200 Ether and no funds have been stolen in any way. The contract was already immune to the hack that affected the DAO and any other known exploit but we hardened the security of the contract for this release. The contract was reviewed extensively by several ethereum developers and no concerns were expressed so far. Also, there are failsafes that allow investors to withdraw funds immediatly in case we notice there is a problem so we can always act preventively.
 All details on contract security can be found here : https://github.com/Bunjin/Rouleth/blob/master/Security.md
    
 #How to invest ? 
