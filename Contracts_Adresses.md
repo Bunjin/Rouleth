@@ -1,6 +1,8 @@
 Current version
 V1.2
+
 http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
+
 changelog :
 - added interfaces features for new website
 - fixed a bug in the expiration of non spinned gambles
