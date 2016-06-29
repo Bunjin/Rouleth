@@ -29,10 +29,10 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
 
   1) Simplest (via transactions from your wallet, not an exchange) : 
   Just send the value you want to bet to the contract and add enough gas 
-  (you can enter the max gas amount of ~4,5Million, any excess is refunded anyways)
-  This will by default place a bet on number 7
-  Wait 2 minutes (6 blocks) and send (with enough gas) 1 wei (or any amount, it will be refunded)
-  This will spin the wheel and you will receive * 35 your bet if you win.
+  (you can enter the max gas amount of  300 000, any excess is refunded anyways)
+  This will by default place a bet on number on red
+  Once your bet has been recorded wait 15 secs (1 block) and send (with 200 000) 1 wei (or any amount, it will be refunded)
+  This will spin the wheel and you will receive 2 times your bet if you win.
   Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
 
 
