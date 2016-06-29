@@ -51,13 +51,13 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
   wait 1 blocks, then use the function spinTheWheel, this will solve the bet.
   You can only place one bet at a time before you spin the wheel.
   Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
+  
+  Use the website to track your bets and the results of the spins
 
 
   4) You can also invest in the Rouleth, that will increase the payroll and the maximum bet !
   You will be thanked by sharing the long-run profits of the casino.
   Read all about it here : www.rouleth.com/how_to_invest.pdf
-
-   Use the website to track your bets and the results of the spins
 
 
 
