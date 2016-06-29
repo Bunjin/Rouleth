@@ -1,4 +1,4 @@
-**INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
+**INVESTMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
 
 www.rouleth.com/how_to_invest.pdf
 
@@ -39,7 +39,7 @@ The contract uses future block hashes as a source of pseudo randomness. Miners c
 All details on contract security can be found here : https://github.com/Bunjin/Rouleth/blob/master/Security.md
    
 #How to invest ? 
-**INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
+**INVESTMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
 
 *1) Without Mist* Send the amount you want to invest to the rouleth contract address (check on the address on the website) and add the following transaction data 0xe8b5e51f also set the gas to 1million. 
 At any time after the lock period, you can use a transaction to withdraw fully your funds. Send a transaction to the rouleth contract address (check on the address on the website) with the following data 0x2037fcbf0000000000000000000000000000000000000000000000000000000000000000 and add 1million gas but not ether.
@@ -47,7 +47,7 @@ At any time after the lock period, you can use a transaction to withdraw fully y
 However without mist wallet you will not be able to check your balances nor to perform partial withdraws. 
    
    
-   **INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
+   **INVESTMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
    
 *2) With Mist wallet :*
    Import the contract in Mist Wallet using the code of the ABI (link on my website)
@@ -58,4 +58,4 @@ However without mist wallet you will not be able to check your balances nor to p
    Finally note that this is only an autonomous contract uploaded to ethereum blockchain. It's experimental software
    and not a safe investment. If you chose to participate, take the time to read the code and do so under your own responsability.
    
-   **INVESMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
+   **INVESTMENTS MUST BE MADE ONLY FROM A REGULAR ETHEREUM ADDRESS THAT YOU OWN. NO CONTRACTS, NO EXCHANGES**
