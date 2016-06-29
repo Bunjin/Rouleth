@@ -16,8 +16,8 @@
    Note that a miner could place several bets on the same block to increase his potential profit from dropping a block
    For this reason we limit the number of bets per block to 2 at start (configurable later if needed).
    
-   There are currently 7 pools with more than 3% mining.
-   cf table etherscan
+   At the time of writing, there are 7 pools with more than 3% mining.
+   http://etherscan.io/stats/miner?range=7
    
    We have a way to monitor cheating by the miners.
    First if they put several bets in the same block we can monitor this on the contract itself and lower the limits to prevent this type of cheating.
