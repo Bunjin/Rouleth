@@ -427,6 +427,7 @@ function updateFirstActiveGamble() private
                     firstActiveGamble=k;
                     break; 
                  }
+                 if (k==firstActiveGamble+50) firstActiveGamble=k;
               }
  }
 	
