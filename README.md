@@ -33,7 +33,7 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
   This will by default place a *bet on number on red*
   Once your bet has been recorded wait 15 secs (1 block) and send (with 200 000) 1 wei (or any amount, it will be refunded)
   This will spin the wheel and you will receive 2 times your bet if you win.
-  Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
+  Don't wait more than 50 blocks before you spin the wheel or your bet will expire.
   Any amount you send in excess of the max bet or when spinning the wheel is immediatly refunded.
 
 
@@ -52,7 +52,7 @@ http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
   add the amount you want to bet.
   wait 1 blocks, then use the function spinTheWheel, this will solve the bet.
   You can only place one bet at a time before you spin the wheel.
-  Don't wait more than 200 blocks before you spin the wheel or your bet will expire.
+  Don't wait more than 50 blocks before you spin the wheel or your bet will expire.
   
   Use the website to track your bets and the results of the spins
 
