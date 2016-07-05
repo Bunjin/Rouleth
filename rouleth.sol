@@ -75,7 +75,7 @@ contract Rouleth
     function  Rouleth() private //creation settings
     { 
         developer = msg.sender;
-        blockDelay=2; //delay to wait between bet and spin
+        blockDelay=1; //delay to wait between bet and spin
 	blockExpiration=200; //delay after which gamble expires
         maxGamble=500 finney; //configurable max bet
         maxBetsPerBlock=5; // limit of bets per block, to prevent multiple bets per miners
@@ -403,7 +403,7 @@ contract Rouleth
         //check that the player waited for the delay before spin
         //and also that the bet is not expired
 	uint playerblock = gambles[gambleIndex[msg.sender]].blockNumber;
-	if (block.number<playerblock+blockDelay || block.number>playerblock+blockExpiration) throw;
+	if (block.number<=playerblock+blockDelay || block.number>playerblock+blockExpiration) throw;
         else
 	{
 	    uint8 wheelResult;
