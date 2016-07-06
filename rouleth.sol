@@ -112,7 +112,7 @@ contract Rouleth
         state=States.active;
     }
     
-    modifier onlyActive
+    modifier onlyActive()
     {
         if (state==States.inactive) throw;
         _
