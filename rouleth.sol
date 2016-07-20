@@ -1026,7 +1026,6 @@ contract Rouleth
     	return;
     }
     
-    //inclure d'autres stats?
     function getSettings() constant returns(uint maxBet, uint8 blockDelayBeforeSpin)
     {
     	maxBet=currentMaxGamble;
