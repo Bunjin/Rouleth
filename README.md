@@ -6,7 +6,7 @@ Full interface on : www.rouleth.com
 Launch GIF : http://i.imgur.com/uQdcJXm.gifv
 
 Current contract address :
-http://etherscan.io/address/0x05240da139d30034eaae15737610bfbe68b97910
+http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
   Play the Roulette on ethereum blockchain !
   (or become an investor in the Casino and share the profits/losses.) 
