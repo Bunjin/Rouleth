@@ -9,7 +9,7 @@ Current contract address :
 http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
   Play the Roulette on ethereum blockchain !
-  (or become an investor in the Casino and share the profits/losses.) 
+  (or become a member of the DAO in the Casino and share the profits/losses.) 
 
 
    website : www.rouleth.com
@@ -57,10 +57,9 @@ http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
   Use the website to track your bets and the results of the spins
 
 
-  4) You can also invest in the Rouleth, that will increase the payroll and the maximum bet !
+  4) You can also join Rouleth DAO, that will increase the payroll and the maximum bet !
   You will be thanked by sharing the long-run profits of the casino.
-  Read all about it here : www.rouleth.com/how_to_invest.pdf
-  
+
   Have fun and play responsibly. Remember this is a betting game and don't bet more than you can afford !
 
    Any questions, concerns, comments and criticizisms ? Contact me :  whysos3rious  \at whysos3rious.com
