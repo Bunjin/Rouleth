@@ -3,8 +3,6 @@
 
 Full interface on : www.rouleth.com
 
-Launch GIF : http://i.imgur.com/uQdcJXm.gifv
-
 Current contract address :
 http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
@@ -15,10 +13,6 @@ http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
    website : www.rouleth.com
    with a gorgeous roulette :) !
 
- *** coded by WhySoS3rious, 2016.                                       ***//
- *** please do not copy without authorization                          ***//
- *** contact : reddit    /u/WhySoS3rious                               ***//
- 
 
   Stake : Variable, check on website for the max bet.
   There is no min bet, you can play for free (except transaction fees from ethereum blockchain of about 0.003eth per full game)
@@ -26,8 +20,11 @@ http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
 #How to play ?
 
+  0) Simplest : Use Metamask plugin and connect to www.rouleth.com that's it
 
-  1) Simplest (via transactions from your wallet, **not an exchange nor a contract**) : 
+Other way to play :
+
+  1)(via transactions from your wallet, **not an exchange nor a contract**) : 
   Just *send the value you want to bet* (check max bet on website) *to the contract address* and add enough gas 
   (you can enter the max *gas amount of  300 000*, any excess is refunded anyways)
   This will by default place a *bet on number on red*
@@ -39,7 +36,6 @@ http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
 
   2) Easy Play with website www.rouleth.com :
-  (cf. tutorial http://www.rouleth.com/pdf/how_to_play.pdf)
   Use the website to select a bet on the board. Use the transaction data displayed in your favorite wallet and send the amount you want to bet (check the max bet on the website). Be sure to add the amount of gas displayed on the website.
   Enter your wallet's address on the website and verify that your bet has been recorded (wait for the ethereum blockchain to update). After 12 secs you can use the new transaction informations displayed on the website to spin the wheel sending a new transaction.
   Once the ethereum blockchain has solved your bet (~10secs), you can see the wheel spin and check the result by using the update button on the website (if you haven't changed the entered address).
