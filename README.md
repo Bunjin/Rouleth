@@ -1,14 +1,13 @@
 #  WHYSOS3RIOUS   PRESENTS :   
 # The ROULETH 
 
-Full interface on : www.rouleth.com
+
 
 Current contract address :
 http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
-  Play the Roulette on ethereum blockchain !
-  (or become a member of the DAO in the Casino and share the profits/losses.) 
-
+ Roulette on ethereum blockchain !
+  (with full DAO membership structure) 
 
    website : www.rouleth.com
    with a gorgeous roulette :) !
@@ -20,7 +19,7 @@ http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
 
 #How to play ?
 
-  0) Simplest : Use Metamask plugin and connect to www.rouleth.com that's it
+  0) Simplest : Use Metamask plugin
 
 Other way to play :
 
@@ -52,11 +51,7 @@ Other way to play :
   
   Use the website to track your bets and the results of the spins
 
-
   4) You can also join Rouleth DAO, that will increase the payroll and the maximum bet !
   You will be thanked by sharing the long-run profits of the casino.
 
   Have fun and play responsibly. Remember this is a betting game and don't bet more than you can afford !
-
-   Any questions, concerns, comments and criticizisms ? Contact me :  whysos3rious  \at whysos3rious.com
-   
