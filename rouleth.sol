@@ -7,36 +7,18 @@
 //                             '.'.-.-,_.'.'
 //                               '(  (..-'
 //                                 '-'
-//   WHYSOS3RIOUS   PRESENTS :   
-//   The ROULETH 
+//  ROULETH 
 //
 //  Play the Roulette on ethereum blockchain !
-//  (or become an investor in the Casino and share the profits/losses.) 
+//  (or become a member of Rouleth's Decentralized Organisation and contribute to the bankroll.) 
 //
 //
-//   Full GUI on website with all info to play : 
-//                   
-//                  Rouleth.com
 //
-//
-//   All documentation on playing and investing are on the website.
-//
-//   News : www.reddit.com/r/Rouleth
-//   twitter : https://twitter.com/TheRouleth
-//
-//   
-//
-//   Github : https://github.com/Bunjin/Rouleth
-//
-//   check latest contract version on website
+//   check latest contract address version on the current website interface
 //   V 2
 //
-// *** coded by WhySoS3rious, 2016.                                       ***//
-// *** please do not copy without authorization                          ***//
-// *** contact : reddit    /u/WhySoS3rious                               ***//
 //
 //
-//  Stake : Variable, check on website for the max bet.
 
 contract Rouleth
 {
@@ -158,9 +140,9 @@ contract Rouleth
         //Min Bet
         if (newMinGamble<0) throw; 
 	else { minGamble=newMinGamble; }
-        //MAX NB of INVESTORS (can only increase (within bounds) or stay equal)
-        //this number of investors can only increase after 25k bets on Rouleth
-        //refuse change of max number of investor if less than 25k bets played
+        //MAX NB of DAO members (can only increase (within bounds) or stay equal)
+        //this number of members can only increase after 25k spins on Rouleth
+        //refuse change of max number of members if less than 25k spins played
         if (newMaxInvestor!=setting_maxInvestors && gambles.length<25000) throw;
         if ( newMaxInvestor<setting_maxInvestors 
              || newMaxInvestor>investors.length) throw;
@@ -217,11 +199,10 @@ contract Rouleth
 
     //Admin function that
     //recalculates max bet
-    //called when invest/withdraw or when spin wheel
-    //ie updated after each bet and change of payroll
+    //updated after each bet and change of bankroll
     function updateMaxBet() private
     {
-	//check that maxGamble setting is still within safety bounds
+	//check that setting is still within safety bounds
         if (payroll/(casinoStatisticalLimit*35) > maxGamble) 
 	{ 
 	    currentMaxGamble=maxGamble;
@@ -621,7 +602,7 @@ contract Rouleth
     }
 
 
-    //INVESTORS FUNCTIONS
+    //D.A.O. FUNCTIONS
 
 
     //total casino payroll
@@ -629,30 +610,30 @@ contract Rouleth
     //Profit Loss since last investor change
     uint256 profitSinceChange;
     uint256 lossSinceChange;
-    //investor struct array (hard capped to 777 members (77 VIP + 700 extra members) )
+    //DAO members struct array (hard capped to 777 members (77 VIP + 700 extra members) )
     struct Investor
     {
 	address investor;
 	uint256 time;
     }	
     
-    Investor[777] private investors; //array of 777 elements (max Rouleth's investors nb.)
+    Investor[777] private investors; //array of 777 elements (max Rouleth's members nb.)
     uint16 setting_maxInvestors = 77; //Initially restricted to 77 VIP Members
-    //Balances of the investors
+    //Balances of the DAO members
     mapping (address=>uint256) balance; 
-    //Investor lockPeriod
-    //minimum invest time
+    //lockPeriod
+    //minimum membership time
     uint256 setting_lockPeriod=30 days ;
-    uint256 setting_minInvestment=100 ether; //min amount to send when using invest()
-    uint256 setting_maxInvestment=200 ether; //max amount to send when using invest()
+    uint256 setting_minInvestment=100 ether; //min amount to send when using "invest()"
+    uint256 setting_maxInvestment=200 ether; //max amount to send when using "invest()"
     
     event newInvest(address player, uint invest_v, uint net_invest_v);
 
 
-    //Become a casino member.
+    //Become a DAO member.
     function invest()
     {
-        // update balances before altering the investor shares            
+        // update balances before altering the shares            
         updateBalances();
         uint256 netInvest;
         uint excess;
@@ -660,25 +641,25 @@ contract Rouleth
         // =999 if full
         uint16 openPosition=999;
         bool alreadyInvestor;
-        // loop over investor's array to find if already investor, 
+        // loop over array to find if already member, 
         // and record a potential openPosition
         for (uint16 k = 0; k<setting_maxInvestors; k++)
         { 
             // captures an index of an open position
             if (investors[k].investor==0) openPosition=k; 
-            // captures if already an investor 
+            // captures if already a member 
             else if (investors[k].investor==msg.sender)
             {
                 alreadyInvestor=true;
                 break;
             }
         }
-        //new Investor
+        //new Member
         if (!alreadyInvestor)
         {
-            // check that more than min invest is sent (variable setting)
+            // check that more than min is sent (variable setting)
             if (msg.value<setting_minInvestment) throw;
-            // check that less than max invest is sent (variable setting)
+            // check that less than max is sent (variable setting)
             // otherwise refund
             if (msg.value>setting_maxInvestment)
             {
@@ -691,42 +672,42 @@ contract Rouleth
 	    }
             //members can't become a VIP member after the initial period
             if (setting_maxInvestors >77 && openPosition<77) throw;
-            //case : investor array not full, record new investor
+            //case : array not full, record new member
             else if (openPosition!=999) investors[openPosition]=Investor(msg.sender, now);
-            //case : investor array full
+            //case : array full
             else
             {
                 throw;
             }
         }
-        //already an investor
+        //already a member
         else
         {
             netInvest=msg.value;
             //is already above the max balance allowed or is sending
-	    // too much refuse additional investment
+	    // too much refuse additional invest
             if (balance[msg.sender]+msg.value>setting_maxInvestment)
             {
                 throw;
             }
-	    // this additionnal invest should be of at least 1/5 of min invest (vs spam)
+	    // this additionnal amount should be of at least 1/5 of "setting_minInvestment" (vs spam)
 	    if (msg.value<setting_minInvestment/5) throw;
         }
 
-        // add investment to balance of investor and to payroll
+        // add to balance of member and to bankroll
         // 10% of initial 77 VIP members investment is allocated to
-        // game dev and marketing
-	// 90% to payroll
+        // game developement provider chosen by Rouleth DAO
+	// 90% to bankroll
         //share that will be allocated to game dev
         uint256 developmentAllocation;
         developmentAllocation=10*netInvest/100; 
         netInvest-=developmentAllocation;
-        //send game development allocation to developer
+        //send game development allocation to Rouleth DAO or tech provider
         if (developer.send(developmentAllocation)==false) throw;
 
 	// Apply extra entry fee once casino has been opened to extra members
 	// that fee will be shared between the VIP members and represents the increment of
-	// market value of their shares in Rouleth to outside investors
+	// market value of their shares in Rouleth to outsiders
 	// warning if a VIP adds to its initial invest after the casino has been opened to 
 	// extra members he will pay have to pay this fee.
         if (setting_maxInvestors>77)
@@ -741,10 +722,10 @@ contract Rouleth
             netInvest-=entryExtraCost;
         }
         newInvest(msg.sender, msg.value, netInvest);//event log
-        balance[msg.sender]+=netInvest; //add invest to balance
-        payroll+=netInvest; //add to payroll
+        balance[msg.sender]+=netInvest; //add to balance
+        payroll+=netInvest; //add to bankroll
         updateMaxBet();
-        //refund potential excess (compared to max invest, when new investor)
+        //refund potential excess
         if (excess>0) 
         {
             if (msg.sender.send(excess)==false) throw;
@@ -752,8 +733,8 @@ contract Rouleth
     }
 
 
-    //Allows to transfer your investor account to another address
-    //target should not be currently an investor of rouleth
+    //Allows to transfer your DAO account to another address
+    //target should not be currently a DAO member of rouleth
     //enter twice the address to make sure you make no mistake.
     //this can't be reversed if you don't own the target account
     function transferInvestorAccount(address newInvestorAccountOwner, address newInvestorAccountOwner_confirm)
@@ -774,7 +755,7 @@ contract Rouleth
                 investorID=k;
             }
         }
-        if (investorID==999) throw; //stop if not an investor
+        if (investorID==999) throw; //stop if not a member
 	else
 	    //accept and execute change of address
 	    //votes on entryFeesRate are not transfered
@@ -788,20 +769,20 @@ contract Rouleth
     
     //***// Withdraw function (only after lockPeriod)
     // input : amount to withdraw in Wei (leave empty for full withdraw)
-    // if your withdraw brings your balance under the min investment required,
+    // if your withdraw brings your balance under the min required,
     // your balance is fully withdrawn
     event withdraw(address player, uint withdraw_v);
     
     function withdrawInvestment(uint256 amountToWithdrawInWei)
     noEthSent
     {
-	//vs spam withdraw min 1/10 of min investment
+	//vs spam withdraw min 1/10 of min
 	if (amountToWithdrawInWei!=0 && amountToWithdrawInWei<setting_minInvestment/10) throw;
-        //before withdraw, update balances of the investors with the Profit and Loss sinceChange
+        //before withdraw, update balances with the Profit and Loss sinceChange
         updateBalances();
 	//check that amount requested is authorized  
 	if (amountToWithdrawInWei>balance[msg.sender]) throw;
-        //retrieve investor ID
+        //retrieve member ID
         uint16 investorID=999;
         for (uint16 k = 0; k<setting_maxInvestors; k++)
         {
@@ -811,10 +792,10 @@ contract Rouleth
                 break;
             }
         }
-        if (investorID==999) throw; //stop if not an investor
+        if (investorID==999) throw; //stop if not a member
         //check if investment lock period is over
         if (investors[investorID].time+setting_lockPeriod>now) throw;
-        //if balance left after withdraw is still above min investment accept partial withdraw
+        //if balance left after withdraw is still above min accept partial withdraw
         if (balance[msg.sender]-amountToWithdrawInWei>=setting_minInvestment && amountToWithdrawInWei!=0)
         {
             balance[msg.sender]-=amountToWithdrawInWei;
@@ -825,17 +806,14 @@ contract Rouleth
         }
         else
             //if amountToWithdraw=0 : user wants full withdraw
-            //if balance after withdraw is < min invest, withdraw all and delete investor
+            //if balance after withdraw is < min invest, withdraw all and delete member
         {
-            //send amount to investor (with security if transaction fails)
+            //send amount to member (with security if transaction fails)
             uint256 fullAmount=balance[msg.sender];
             payroll-=fullAmount;
             balance[msg.sender]=0;
 
-	    //todo verifier que delete marche bien, car remplace par 0x et non par 0x00000
-	    // peut on bien reprendre cette place ?
-
-	    //delete investor
+	    //delete member
             delete investors[investorID];
             if (msg.sender.send(fullAmount)==false) throw;
    	    withdraw(msg.sender, fullAmount);
@@ -843,8 +821,8 @@ contract Rouleth
         updateMaxBet();
     }
 
-    //***// updates balances with Profit Losses when there is a withdraw/deposit of investors
-    // can be called by dev for accounting when there are no more investors changes
+    //***// updates balances with Profit Losses when there is a withdraw/deposit
+    // can be called by dev for accounting when there are no more changes
     function manualUpdateBalances_only_Dev()
     noEthSent
     onlyDeveloper
@@ -875,8 +853,8 @@ contract Rouleth
                 lossToSplit=lossSinceChange-profitSinceChange;
             }
             
-            //share the loss and profits between all invest 
-            //(proportionnaly. to each investor balance)
+            //share the loss and profits between all DAO members 
+            //(proportionnaly. to each one's balance)
 
             uint totalShared;
             for (uint16 k=0; k<setting_maxInvestors; k++)
@@ -900,7 +878,7 @@ contract Rouleth
                     }
                 }
             }
-            // update payroll
+            // update bankroll
 	    // and handle potential very small left overs from integer div.
             if (profitToSplit !=0) 
             {
@@ -918,7 +896,7 @@ contract Rouleth
     }
     
 
-    //VIP Investors Voting on Extra Invest Fees Rate
+    //VIP Voting on Extra Invest Fees Rate
     //mapping records 100 - vote
     mapping (address=>uint) hundredminus_extraInvestFeesRate;
     // max fee is 99%
@@ -960,7 +938,7 @@ contract Rouleth
     }
 
 
-    //Split the profits of the VIP members on extra members' investments
+    //Split the profits of the VIP members on extra members' contribution
     uint profitVIP;
     function splitProfitVIP_only_Dev()
     noEthSent
@@ -976,7 +954,7 @@ contract Rouleth
                 payrollVIP+=balance[investors[k].investor];
             }
         }
-        //split the profits of the VIP members on extra member's investments
+        //split the profits of the VIP members on extra member's contribution
 	uint totalSplit;
         for (uint8 i=0; i<77; i++)
         {
@@ -988,7 +966,7 @@ contract Rouleth
 		totalSplit+=toSplit;
             }
         }
-	//take care of Integer Div remainders, and add to payroll
+	//take care of Integer Div remainders, and add to bankroll
 	balance[developer]+=profitVIP-totalSplit;
 	payroll+=profitVIP;
 	//reset var profitVIP
@@ -1076,6 +1054,3 @@ contract Rouleth
     }
 
 } //end of contract
-
-
-
