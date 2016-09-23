@@ -1,4 +1,3 @@
-#  WHYSOS3RIOUS   PRESENTS :   
 # ROULETH Smart Contract
 
 
