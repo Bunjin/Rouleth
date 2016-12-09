@@ -2,6 +2,7 @@
    The roulette result is based on the hash of the next block after the player commits his bet.
    This guarantees a provably fair roulette with equiprobable results and non predictable
    unless someone has more computing power than all the Ethereum Network.
+   http://whysos3rious.com/index.php/2016/07/22/rouleth-com-a-new-paradigm-for-gambling-decentralized-account-less-and-provably-fair/
    
    Yet Miners could try to exploit their position of block makers.
    They could commit a bet, then wait 1 block and hope that they will be the one forming the 
