@@ -50,8 +50,6 @@ Other way to play :
   
   Use the website to track your bets and the results of the spins
 
-  4) You can also join Rouleth DAO, that will increase the payroll and the maximum bet !
-
   Have fun and play responsibly. Remember this is a betting game and don't bet more than you can afford !
   
   This game in its current form is designed essentially as a proof of concept for ethereum.
