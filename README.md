@@ -3,7 +3,6 @@
 Rouleth is one of the first fonctionning and bug less smart contract deployed on the ethereum blockchain.
 
 At time of writting, it has processed 20k bets, more than 50k transactions.
-It held up to 0.5 M$ in Ether
 
 Current PoC contract address :
 http://etherscan.io/address/0x18a672e11d637fffadccc99b152f4895da069601
